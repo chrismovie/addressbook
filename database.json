@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "host"     : "localhost",
+    "socketPath" : "/Applications/MAMP/tmp/mysql/mysql.sock",
+    "user"     : "root",
+    "password" : "root",
+    "database" : "addressbook"
+  },
+  "production": {
+    "host"     : "some.remotesite.com/db",
+    "user"     : "alaneicker",
+    "password" : "secretpassword",
+    "database" : "addressbook"
+  }
+}

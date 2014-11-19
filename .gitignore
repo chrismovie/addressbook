@@ -1,0 +1,16 @@
+# Ignore all dotfiles...
+.*
+# except
+!.gitignore
+
+# Logs
+logs
+*.log
+
+.grunt
+
+node_modules/
+bower_components/
+
+public/styles
+public/scripts
