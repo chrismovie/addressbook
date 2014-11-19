@@ -12,5 +12,5 @@ logs
 node_modules/
 bower_components/
 
-public/styles
-public/scripts
+public/styles/
+public/scripts/
