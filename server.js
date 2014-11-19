@@ -10,7 +10,7 @@ var
 
 // required modules
 express    = require('express');
-bodyParser = require('body-parser'),
+bodyParser = require('body-parser');
 mysql      = require('mysql'); 
 
 // express app
@@ -32,3 +32,12 @@ app.use(bodyParser.json({ limit: 10000000 }));
 app.listen(port);
 
 // APIS
+
+// Get all contacts
+app.get('/api/getAllContacts', function (req, res) {
+    var q = 'SELECT * FROM users INNER JOIN contactinfo ON users.userid = contactinfo.userid';
+    db.query(q, function (err, result) {
+        if (err) { console.log(err); }
+        res.json(result); 
+    });
+});
