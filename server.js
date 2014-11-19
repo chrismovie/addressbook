@@ -33,9 +33,19 @@ app.listen(port);
 
 // APIS
 
-// Get all contacts
+// GET all contacts
 app.get('/api/getAllContacts', function (req, res) {
     var q = 'SELECT * FROM users INNER JOIN contactinfo ON users.userid = contactinfo.userid';
+    db.query(q, function (err, result) {
+        if (err) { console.log(err); }
+        console.log(result);
+        res.json(result); 
+    });
+});
+
+// GET contact by userid
+app.get('/api/getContactById/:userid', function (req, res) {
+    var q = 'SELECT * FROM users INNER JOIN contactinfo ON users.userid = contactinfo.userid WHERE users.userid = ' + req.params.userid;
     db.query(q, function (err, result) {
         if (err) { console.log(err); }
         res.json(result); 
