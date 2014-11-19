@@ -1,3 +1,5 @@
+@import url("http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800"); 
+
 // CSS reset
 
 html, body, div, span, applet, object, iframe,
@@ -25,8 +27,22 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
+* {
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+}
+html, body {
+    height:100%;
+}
 body {
-    line-height: 1;
+    background-color:#f0f0f0;
+    color:#777;
+    font-family:"Raleway", Arial, Helvetica, sans-serif;
+    font-size:14px;
+    line-height:1.2;
+    overflow:hidden;
+    padding:4px;
 }
 ol, ul {
     list-style: none;
@@ -42,4 +58,71 @@ q:before, q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+a {
+    color:#098AAD;
+    outline:0;
+    text-decoration:none;
+
+    &:hover {
+        text-decoration:underline;
+    }
+}
+
+// header 
+header {
+    background-color:#333;
+    height:45px;
+    left:0;
+    position:fixed;
+    right:0;
+    top:0;
+}
+
+.main-content {
+    height:100%;
+    padding-top:45px;
+
+    // Address book
+    .address-book {
+        height:100%;
+        overflow-x:hidden;
+        overflow-y:auto;
+
+        .contact-item {
+            padding:4px;
+            float:left;
+            width:33.333%;
+
+            @media(max-width:1024px) {
+                width:50%;
+            }
+
+            @media(max-width:568px) {
+                width:100%;
+            }
+
+            .item-content {
+                background-color:#fff;
+                padding:10px;
+
+                h3 {
+                    color:#444;
+                    font-size:18px;
+                    font-weight:700;
+                }
+                .contact-avatar {
+                    border-radius:50%;
+                    -moz-border-radius:50%;
+                    -webkit-border-radius:50%;
+                    float:left;
+                    width:100px;
+                }
+                .contact-info {
+                    padding-left:115px;
+                }
+            }
+        }
+    }
+
 }

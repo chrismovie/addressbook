@@ -6,28 +6,44 @@
     <link rel="stylesheet" href="/styles/main.min.css" />
 </head>
 <body>
-    <div class="address-book" ng-controller="AddressBookController">
 
-        <div class="contact-item" ng-repeat="c in contacts">
-            <div class="item-content">
-                <img class="contact-avatar" ng-src="{{c.imgurl}}">
-                <div class="contact-info">
-                    <h3 ng-bind="c.firstname + ' ' + c.lastname"></h3>
-                    e. <a ng-href="{{c.email}}" ng-bind="c.email"></a>
-                    <div class="phones">
-                        <div ng-bind="'h. ' + (c.homephone ? c.homephone : '--')"></div>
-                        <div ng-bind="'c. ' + (c.cellphone ? c.cellphone : '--')"></div>
-                        <div ng-bind="'w. ' + (c.workphone ? c.workphone : '--')"></div>
-                    </div>
-                    <div class="address">
-                        <div ng-bind="c.address + ' ' + c.address2"></div>
-                        <div ng-bind="c.city + ', ' + c.state + ' ' + c.zip"></div>
+    <header>
+
+    </header>
+
+    <section class="main-content">
+
+        <div class="address-book" ng-controller="AddressBookController">
+            
+            <!-- contact item template -->
+            <div class="contact-item" ng-repeat="c in contacts">
+                <div class="item-content">
+                    <img class="contact-avatar" ng-src="{{c.imgurl}}">
+                    <div class="contact-info">
+                        <h3 ng-bind="c.firstname + ' ' + c.lastname"></h3>
+                        <div ng-if="c.email">
+                            e. <a ng-href="{{c.email}}" ng-bind="c.email"></a>
+                        </div>
+                        <div ng-if="!c.email">
+                            e. --
+                        </div>
+                        <div class="phones">
+                            <div ng-bind="'h. ' + (c.homephone ? c.homephone : '--')"></div>
+                            <div ng-bind="'c. ' + (c.cellphone ? c.cellphone : '--')"></div>
+                            <div ng-bind="'w. ' + (c.workphone ? c.workphone : '--')"></div>
+                        </div>
+                        <div class="address">
+                            <div ng-if="c.address" ng-bind="c.address + ' ' + c.address2"></div>
+                            <div ng-bind="c.city + (c.state || c.zip ? ', ' : '') + c.state + ' ' + c.zip"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-    </div>
+            </div> <!-- /.contact-item -->
+
+        </div> <!-- /.address-book -->
+
+    </section>  <!-- /.main-content -->
+
     <script src="/scripts/main.min.js"></script>
 </body>
 </html>
