@@ -108,7 +108,7 @@ app.post('/api/editContact/:userid', function (req, res) {
         req.body.zip 
     ];
 
-    q = 'UPDATE users u INNER JOIN contactinfo c ON u.userid = c.userid SET u.firstname = ?, u.lastname = ?, u.imgurl = ?, c.email = ?, c.homephone = ?, c.cellphone = ?, c.workphone = ?, c.address = ?, c.address2 = ?, c.city = ?, c.state = ?, c.zip = ? WHERE c.userid = ' + req.params.userid + ' AND U.USERID = ' + req.params.userid;
+    q = 'UPDATE users u INNER JOIN contactinfo c ON u.userid = c.userid SET u.firstname = ?, u.lastname = ?, u.imgurl = ?, c.email = ?, c.homephone = ?, c.cellphone = ?, c.workphone = ?, c.address = ?, c.address2 = ?, c.city = ?, c.state = ?, c.zip = ? WHERE c.userid = ' + req.params.userid + ' AND u.USERID = ' + req.params.userid;
 
     db.query(q, values, function (err, result) {
         if (err) { console.log(err); }
