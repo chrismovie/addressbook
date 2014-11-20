@@ -33,7 +33,15 @@
 
         $scope.submitForm = function () {
             $scope.model.imgurl = $scope.getProfileImg();
-            API.httpRequest({ url: '/api/editContact/' + $routeParams.userid, method: 'POST' }).query($scope.model);
+            API.httpRequest({ url: '/api/editContact/' + $routeParams.userid, method: 'POST', isArray:false }).query($scope.model, 
+                function (res) {
+                    if (res.affectedRows > 0) {
+                        $scope.showConfirmation = true
+                    }
+                }, function () {
+                    $log.debug(error);
+                }
+            );
         };
 
     }]);
@@ -45,7 +53,9 @@
         $scope.model = {};
 
         $scope.submitForm = function () {
-
+            $scope.model.imgurl = $scope.getProfileImg();
+            $scope.model.userid = Math.round(Math.random() * 100000);
+            API.httpRequest({ url: '/api/createContact', methos: 'POST', isArray: false }).query($scope.model);
         };
 
     }]);

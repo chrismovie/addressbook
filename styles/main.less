@@ -31,6 +31,9 @@
 .icon-delete:before {
   content: "\e601"; 
 }
+.icon-check:before {
+  content: "\e602"; 
+}
 
 // clearfix
 // --------------------------------------------------
@@ -168,10 +171,12 @@ button, input, select, textarea {
         border:0;
         color:#888;
         font-size:1em;
+        width:100%;
     }
 }
 
 .input.button {
+    clear:both;
     padding-top:10px;
 }
 
@@ -185,7 +190,29 @@ input[type="button"] {
     cursor:pointer;
     display:inline-block;
     font-size:1em;
-    padding:5px;
+    padding:10px;
+}
+
+// messaging
+// --------------------------------------------------
+.confirmation {
+    color:#77AD1F;
+    font-size:.6em;
+    font-weight:400;
+
+    @media(max-width:450px) {
+        display:block;
+        margin-top:15px;
+    }
+
+    .icon-check {
+        display:inline-block;
+        margin:0 5px 0 15px;
+
+        @media(max-width:450px) {
+            margin:0 5px 0 0;
+        }
+    }
 }
 
 // header 
@@ -323,6 +350,7 @@ header {
 // edit contact form
 .edit-contact-form {
     .scrollOverflowY();
+    .clearfix();
 
     h2 {
         margin:20px;
@@ -340,6 +368,7 @@ header {
 
         .profile-avatar-wrap {
             float:left;
+            margin-bottom:20px;
 
             img {
                 border-radius:50%;
@@ -350,8 +379,15 @@ header {
                 width:130px;
             }
         }
+
         #uploader {
             margin-top:15px;
+        }
+
+        input[type="button"] {
+            @media(max-width:400px) {
+                width:100%;
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 <form class="edit-contact-form" novalidate>
 
-    <h2 ng-bind="action + ' contact'"></h2>
+    <h2><span ng-bind="action + ' contact'"></span> <span ng-show="showConfirmation" class="confirmation" ng-bind-html="'<span class=icon-check></span>' + (action == 'create' ? 'successfully created new contact' : 'successfully updated contact')"></span></h2>
 
     <section>
 
@@ -54,11 +54,6 @@
             <input type="text" placeholder="zip" ng-model="model.zip" />
         </div>
 
-        <!-- submit -->
-        <div class="input button">
-            <input type="button" value="{{action}}" ng-click="submitForm()" />
-        </div>
-
     </section>
 
     <section>
@@ -73,6 +68,10 @@
 
         <input id="uploader" type="file">
 
+    </section>
+
+    <section class="input button">
+        <input type="button" value="{{action}}" ng-click="submitForm()" />
     </section>
 
 </form>

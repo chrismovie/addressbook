@@ -27,8 +27,8 @@ db.connect();
 
 // configure server
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({ extended: false, limit: 10000000 }));
-app.use(bodyParser.json({ limit: 10000000 })); 
+app.use(bodyParser.urlencoded({ extended: false, limit: 1000000000 }));
+app.use(bodyParser.json({ limit: 1000000000 })); 
 app.listen(port);
 
 // APIS
@@ -68,7 +68,7 @@ app.post('/api/editContact/:userid', function (req, res) {
         req.body.address2,
         req.body.city,
         req.body.state,
-        req.body.zip
+        req.body.zip 
     ];
 
     q = 'UPDATE users, contactinfo SET ' 
@@ -91,7 +91,7 @@ app.post('/api/editContact/:userid', function (req, res) {
 
     db.query(q, values, function (err, result) {
         if (err) { console.log(err); }
-        console.log(result);
+        res.send(result);
     }); 
 });
 
