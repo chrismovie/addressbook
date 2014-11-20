@@ -1,6 +1,6 @@
 <form class="edit-contact-form" novalidate>
 
-    <h2><span ng-bind="action + ' contact'"></span> <span ng-show="showConfirmation" class="confirmation" ng-bind-html="'<span class=icon-check></span>' + (action == 'create' ? 'successfully created new contact' : 'successfully updated contact')"></span></h2>
+    <h2><span ng-bind="action + ' contact'"></span></h2>
 
     <section>
 
@@ -61,7 +61,7 @@
         <h3>profile photo</h3>
 
         <div class="profile-avatar-wrap">
-          <img ng-src="{{model.imgurl}}" id="profile-avatar" alt="profile image">
+          <img ng-src="{{model.imgurl || '/images/default_profile_img.png'}}" id="profile-avatar" alt="profile image">
         </div>
 
         <p>updload a profile image by draging and dropping an image from your desktop to the box on the right. alternatively you can use the boring file upload below.</p>

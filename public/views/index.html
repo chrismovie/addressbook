@@ -23,7 +23,7 @@
                 </div>
                 <div class="address">
                     <div class="truncate" ng-if="m.address" ng-bind="m.address + ' ' + m.address2"></div>
-                    <div class="truncate" ng-bind="m.city + (m.state || m.zip ? ', ' : '') + m.state + ' ' + m.zip"></div>
+                    <div class="truncate" ng-bind="(m.city || '') + (m.state || m.zip ? ', ' : '') + (m.state || '') + ' ' + (m.zip || '')"></div>
                 </div>
             </div>
             <div class="actions">
@@ -34,3 +34,8 @@
     </div> <!-- /.contact-item -->
 
 </div> <!-- /.address-book -->
+
+<!-- messaging dialog -->
+<div ng-show="showConfirmation" class="dialog confirmation">
+    <span class="icon-check"></span> Contact successfully deleted.
+</div>

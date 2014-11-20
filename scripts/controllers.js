@@ -18,7 +18,7 @@
 
 
     // EditContactController
-    addressbook.controller('EditContactController', ['$scope', '$log', '$routeParams', 'API', function ($scope, $log, $routeParams, API) {
+    addressbook.controller('EditContactController', ['$scope', '$log', '$routeParams', '$location', 'API', function ($scope, $log, $routeParams, $location, API) {
 
         $scope.action = 'edit';
 
@@ -36,7 +36,7 @@
             API.httpRequest({ url: '/api/editContact/' + $routeParams.userid, method: 'POST', isArray:false }).query($scope.model, 
                 function (res) {
                     if (res.affectedRows > 0) {
-                        $scope.showConfirmation = true
+                        $location.path('/');
                     }
                 }, function () {
                     $log.debug(error);
@@ -47,7 +47,7 @@
     }]);
 
     // CreateContactController
-    addressbook.controller('CreateContactController', ['$scope', '$log', 'API', function ($scope, $log, API) {
+    addressbook.controller('CreateContactController', ['$scope', '$log', '$location', 'API', function ($scope, $log, $location, API) {
 
         $scope.action = 'create';
         $scope.model = {};
@@ -55,7 +55,14 @@
         $scope.submitForm = function () {
             $scope.model.imgurl = $scope.getProfileImg();
             $scope.model.userid = Math.round(Math.random() * 100000);
-            API.httpRequest({ url: '/api/createContact', methos: 'POST', isArray: false }).query($scope.model);
+            API.httpRequest({ url: '/api/createContact', method: 'POST', isArray: false }).query($scope.model, 
+                function (res) {
+                    $location.path('/');
+                }, 
+                function (error) {
+                    $log.debug(error);
+                }
+            );
         };
 
     }]);
