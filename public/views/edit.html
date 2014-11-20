@@ -1,0 +1,78 @@
+<form class="edit-contact-form" novalidate>
+
+    <h2 ng-bind="action + ' contact'"></h2>
+
+    <section>
+
+        <h3>contact name</h3>
+
+        <div class="input">
+            <input type="text" placeholder="first name" ng-model="model.firstname" />
+        </div>
+
+        <div class="input">
+            <input type="text" placeholder="last name" ng-model="model.lastname" />
+        </div>
+
+        <h3>contact phone &amp; email</h3>
+
+        <div class="input">
+            <input type="text" placeholder="email address" ng-model="model.email" />
+        </div>
+
+        <div class="input">
+            <input type="text" placeholder="home phone" ng-model="model.homephone" />
+        </div>
+
+        <div class="input">
+            <input type="text" placeholder="cell phone" ng-model="model.cellphone" />
+        </div>
+
+        <div class="input">
+            <input type="text" placeholder="work phone" ng-model="model.workphone" />
+        </div>
+
+        <h3>contact address</h3>
+
+        <div class="input">
+            <input type="text" placeholder="address" ng-model="model.address" />
+        </div>
+
+        <div class="input">
+            <input type="text" placeholder="unit/apartment #" ng-model="model.address2" />
+        </div>
+
+        <div class="input">
+            <input type="text" placeholder="city" ng-model="model.city" />
+        </div>
+
+        <div class="input">
+            <input type="text" placeholder="state" ng-model="model.state" />
+        </div>
+
+        <div class="input">
+            <input type="text" placeholder="zip" ng-model="model.zip" />
+        </div>
+
+        <!-- submit -->
+        <div class="input button">
+            <input type="button" value="{{action}}" ng-click="submitForm()" />
+        </div>
+
+    </section>
+
+    <section>
+
+        <h3>profile photo</h3>
+
+        <div class="profile-avatar-wrap">
+          <img ng-src="{{model.imgurl}}" id="profile-avatar" alt="profile image">
+        </div>
+
+        <p>updload a profile image by draging and dropping an image from your desktop to the box on the right. alternatively you can use the boring file upload below.</p>
+
+        <input id="uploader" type="file">
+
+    </section>
+
+</form>

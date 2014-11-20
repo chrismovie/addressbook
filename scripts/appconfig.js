@@ -1,5 +1,5 @@
 // Main application namespance
-var addressbook = angular.module('addressbook', ['ngSanitize','services']);
+var addressbook = angular.module('addressbook', ['ngSanitize', 'ngRoute', 'services', 'directives']);
 
 // Services namespace
 var services    = angular.module('services', ['ngResource']);

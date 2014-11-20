@@ -46,6 +46,7 @@ module.exports = function (grunt) {
             'bower_components/angular-touch/angular-touch.js',
             'scripts/lib/**/*.js',
             'scripts/appconfig.js',
+            'scripts/routes.js',
             'scripts/controllers.js',
             'scripts/directives.js',
             'scripts/services.js'

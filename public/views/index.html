@@ -1,0 +1,36 @@
+<div class="filter">
+    <input type="text" placeholder="start typing to filter ..." ng-model="query">
+</div>
+
+<div class="address-book">
+
+    <!-- contact item template -->
+    <div class="contact-item" ng-repeat="m in model | filter:query">
+        <div class="item-content">
+            <img class="contact-avatar" ng-src="{{m.imgurl}}">
+            <div class="contact-info">
+                <h3 ng-bind="m.firstname + ' ' + m.lastname"></h3>
+                <div class="email" ng-if="m.email">
+                    <a class="truncate" ng-href="{{m.email}}" ng-bind="m.email"></a>
+                </div>
+                <div class="email" ng-if="!m.email">
+                    e. --
+                </div>
+                <div class="phones">
+                    <div ng-bind="'h. ' + (m.homephone ? m.homephone : '--')"></div>
+                    <div ng-bind="'c. ' + (m.cellphone ? m.cellphone : '--')"></div>
+                    <div ng-bind="'w. ' + (m.workphone ? m.workphone : '--')"></div>
+                </div>
+                <div class="address">
+                    <div class="truncate" ng-if="m.address" ng-bind="m.address + ' ' + m.address2"></div>
+                    <div class="truncate" ng-bind="m.city + (m.state || m.zip ? ', ' : '') + m.state + ' ' + m.zip"></div>
+                </div>
+            </div>
+            <div class="actions">
+                <a class="icon-edit" ng-href="#/edit/{{m.userid}}"></a>
+                <a class="icon-delete" ng-href="#/delete/{{m.userid}}"></a>
+            </div>
+        </div>
+    </div> <!-- /.contact-item -->
+
+</div> <!-- /.address-book -->
