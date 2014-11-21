@@ -116,5 +116,15 @@ app.post('/api/editContact/:userid', function (req, res) {
     }); 
 });
 
+// DELETE delete contact
+app.post('/api/deleteContact/:userid', function (req, res) {
+    var q = 'DELETE u, c FROM users u INNER JOIN contactinfo c ON u.userid = c.userid WHERE u.userid = ' + req.params.userid;
+    db.query(q, function (err, result) {
+        if (err) { console.log(err); }
+        res.send(result);
+    }); 
+});
+
+
 
 

@@ -19,6 +19,18 @@
             }
         );
 
+        $scope.deleteContact = function (userid) {
+            $scope.showLoader();
+            API.httpRequest({ url: '/api/deleteContact/' + userid, method: 'POST', isArray: false }).query(
+                function (res) {
+                    $scope.hideLoader();
+                },
+                function (error) {
+                    $log.debug(error);
+                }
+            );
+        };
+
     }]);
 
 
