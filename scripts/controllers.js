@@ -19,10 +19,23 @@
             }
         );
 
+        $scope.showConfirmationDialog = function (userid) {
+            $scope.showDialog = true;
+            $scope.deleteId   = userid;
+        };
+
+        $scope.cancelDelete = function () {
+            $scope.showDialog = false;
+        };
+
         $scope.deleteContact = function (userid) {
             $scope.showLoader();
             API.httpRequest({ url: '/api/deleteContact/' + userid, method: 'POST', isArray: false }).query(
                 function (res) {
+                    var updatedModel  = $scope.model.filter(function (item) { return item.userid !== $scope.deleteId; });
+                    $scope.model      = updatedModel;
+                    $scope.deleteId   = null;
+                    $scope.showDialog = false;
                     $scope.hideLoader();
                 },
                 function (error) {

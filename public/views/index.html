@@ -28,7 +28,7 @@
             </div>
             <div class="actions">
                 <a class="icon-edit" ng-href="#/edit/{{m.userid}}"></a>
-                <a class="icon-delete" href="" ng-click="deleteContact(m.userid)"></a>
+                <a class="icon-delete" href="" ng-click="showConfirmationDialog(m.userid)"></a>
             </div>
         </div>
     </div> <!-- /.contact-item -->
@@ -38,4 +38,10 @@
 <!-- messaging dialog -->
 <div ng-show="showConfirmation" class="dialog confirmation">
     <span class="icon-check"></span> Contact successfully deleted.
+</div>
+
+<div ng-show="showDialog" class="dialog confirm-delete">
+    <h3>are you sure you want to delete this contact?</h3>
+    <button class="button yes" ng-click="deleteContact(deleteId)">yes</button>
+    <button class="button no" ng-click="cancelDelete()">no</button>
 </div>

@@ -53,6 +53,12 @@
     -webkit-overflow-scrolling:touch;
 }
 
+.roundedCorners(@radius:2px) {
+    border-radius:@radius;
+    -moz-border-radius:@radius;
+    -webkit-border-radius:@radius;
+}
+
 // CSS reset
 // --------------------------------------------------
 html, body, div, span, applet, object, iframe,
@@ -145,6 +151,44 @@ body {
     z-index:3;
 }
 
+// dialog
+// --------------------------------------------------
+.dialog {
+    background-color:#333;
+    height:125px;
+    left:50%;
+    margin:-62.5px 0 0 -150px;
+    padding:20px;
+    position:fixed;
+    text-align:center;
+    top:50%;
+    width:300px;
+    z-index:3;
+    .roundedCorners();
+
+    h3 {
+        color:#fff;
+        font-weight:600;
+    }
+    button {
+        border:0; 
+        color:#fff;
+        cursor:pointer;
+        display:inline-block;
+        line-height:30px;
+        width:60px;
+        .roundedCorners();
+
+        &.yes {
+            background-color:#77AD1F;
+        }
+        &.no {
+            background-color:#F6413B;
+            margin-left:5px;
+        }
+    }
+}
+
 // headings
 // --------------------------------------------------
 h2 {
@@ -196,36 +240,12 @@ button, input, select, textarea {
 input[type="button"] {
     background-color:#444;
     border:0;
-    border-radius:2px;
-    -moz-border-radius:2px;
-    -webkit-border-radius:2px;
     color:#fff;
     cursor:pointer;
     display:inline-block;
     font-size:1em;
     padding:10px;
-}
-
-// messaging
-// --------------------------------------------------
-.confirmation {
-    color:#77AD1F;
-    font-size:.6em;
-    font-weight:400;
-
-    @media(max-width:450px) {
-        display:block;
-        margin-top:15px;
-    }
-
-    .icon-check {
-        display:inline-block;
-        margin:0 5px 0 15px;
-
-        @media(max-width:450px) {
-            margin:0 5px 0 0;
-        }
-    }
+    .roundedCorners();
 }
 
 // header 
@@ -252,9 +272,6 @@ header {
     }
     .add-contact {
         background:#555;
-        border-radius:2px;
-        -moz-border-radius:2px;
-        -webkit-border-radius:2px;
         color:#fff;
         cursor:pointer;
         display:inline-block;
@@ -265,7 +282,8 @@ header {
         line-height:30px;
         margin-top:7.5px;
         text-align:center;
-        width:30px
+        width:30px;
+        .roundedCorners();
     }
 }
 
@@ -316,12 +334,10 @@ header {
                     margin-bottom:0;
                 }
                 .contact-avatar {
-                    border-radius:50%;
-                    -moz-border-radius:50%;
-                    -webkit-border-radius:50%;
                     float:left;
                     height:100px;
                     width:100px;
+                    .roundedCorners(@radius:50%);
                 }
                 .contact-info {
                     border-bottom:1px solid #dedede;
@@ -385,12 +401,10 @@ header {
             margin-bottom:20px;
 
             img {
-                border-radius:50%;
-                -moz-border-radius:50%;
-                -webkit-border-radius:50%;
                 height:130px;
                 margin-right:20px;
                 width:130px;
+                .roundedCorners(@radius:50%);
             }
         }
 
