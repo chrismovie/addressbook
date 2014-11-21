@@ -5,9 +5,14 @@
     // AddressBookController 
     addressbook.controller('AddressBookController', ['$scope', '$log', 'API', function ($scope, $log, API) {
 
+        $scope.$on('$routeChangeSuccess', function () {
+            $scope.showLoader();
+        });
+
         API.httpRequest({ url: '/api/getAllContacts' }).query(
             function (res) {
                 $scope.model = res;
+                $scope.hideLoader();
             }, 
             function (error) {
                 $log.debug(error);
@@ -32,6 +37,7 @@
         );
 
         $scope.submitForm = function () {
+            $scope.showLoader();
             $scope.model.imgurl = $scope.getProfileImg();
             API.httpRequest({ url: '/api/editContact/' + $routeParams.userid, method: 'POST', isArray:false }).query($scope.model, 
                 function (res) {
@@ -53,6 +59,7 @@
         $scope.model = {};
 
         $scope.submitForm = function () {
+            $scope.showLoader();
             $scope.model.imgurl = $scope.getProfileImg();
             $scope.model.userid = Math.round(Math.random() * 100000);
             API.httpRequest({ url: '/api/createContact', method: 'POST', isArray: false }).query($scope.model, 
