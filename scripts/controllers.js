@@ -50,11 +50,16 @@
     // EditContactController
     addressbook.controller('EditContactController', ['$scope', '$log', '$routeParams', '$location', 'API', function ($scope, $log, $routeParams, $location, API) {
 
+        $scope.$on('$routeChangeSuccess', function () {
+            $scope.showLoader();
+        });
+
         $scope.action = 'edit';
 
         API.httpRequest({ url: '/api/getContactById/' + $routeParams.userid, isArray: false }).query(
             function (res) {
                 $scope.model = res;
+                $scope.hideLoader();
             },
             function (error) {
                 $log.debug(error);
