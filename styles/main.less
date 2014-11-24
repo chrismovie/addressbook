@@ -193,6 +193,12 @@ body {
     }
 }
 
+// errors 
+.login-error {
+    color:#FF5B19;
+    margin-bottom:10px;
+}
+
 // headings
 // --------------------------------------------------
 h2 {
@@ -251,6 +257,24 @@ input[type="button"] {
     font-size:1em;
     padding:10px;
     .roundedCorners();
+
+    &:disabled {
+        background:#ccc;
+        cursor:default;
+    }
+}
+
+// logo
+// --------------------------------------------------
+.logo {
+    color:#fff;
+    display:inline-block;
+    font-size:1.3em;
+    font-weight:300;
+
+    span {
+        font-weight:700;
+    }
 }
 
 // header 
@@ -265,16 +289,6 @@ header {
     top:0;
     .clearfix();
 
-    .heading {
-        color:#fff;
-        display:inline-block;
-        font-size:1.3em;
-        font-weight:300;
-
-        span {
-            font-weight:700;
-        }
-    }
     .add-contact {
         background:#555;
         color:#fff;
@@ -436,18 +450,22 @@ header {
 .login-form {
     height:195px;
     left:50%;
-    margin:-120px 0 0 -150px;
+    margin:-135px 0 0 -150px;
     position:absolute;
     text-align:center;
     top:50%;
     width:300px;
 
     h3 {
+        color:#444;
         font-size:1.5em;
         margin-bottom:20px;
     }
     input[type="button"] {
         width:100%;
+    }
+    input {
+        text-align:center;
     }
 }
 

@@ -31,4 +31,20 @@
         };
     });
 
+    directives.directive('triggerOnKeypress', function () {
+        return {
+          scope: true,
+          restrict: 'A',
+          link: function (scope, element, attributes) {
+            var options = JSON.parse(attributes.triggerOnKeypress);
+            element.find('input, textarea').on('keyup', function (e) {
+              var isValid = element.hasClass('ng-valid');
+              if (e.keyCode === options.keycode && isValid) {
+                scope[options.method]();
+              }
+            }); 
+          }
+        };
+     });
+
 })();

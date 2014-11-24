@@ -1,12 +1,31 @@
-<form class="login-form" trigger-on-keypress='{ "keycode":13, "method": "authenticateUser" }' novalidate>
-    <h3>Login</h3>
+<form class="login-form" 
+      name="loginForm"
+      autocomplete="off"
+      trigger-on-keypress='{ "keycode":13, "method": "authenticateUser" }' novalidate>
+    <h3 class="logo">my <span>address book</span></h3>
+    <div class="login-error" ng-if="loginError">invalid login credentials</div>
     <div class="input">
-        <input type="text" placeholder="username" ng-model="model.username" ng-model="model.username" />
+        <input type="text"
+               required
+               autocorrect="off"
+               autocapitalize="off"
+               placeholder="username" 
+               ng-model="model.username" 
+               ng-model="model.username" />
     </div>
     <div class="input">
-        <input type="password" placeholder="password" ng-model="model.password" ng-model="model.password" />
+        <input type="password" 
+               required
+               autocorrect="off"
+               autocapitalize="off"
+               placeholder="password" 
+               ng-model="model.password" 
+               ng-model="model.password" />
     </div>
     <section class="input button">
-        <input type="button" value="login" ng-click="authenticateUser()" />
+        <input type="button" 
+               value="login" 
+               ng-disabled="loginForm.$invalid"
+               ng-click="authenticateUser()" />
     </section>
 </form>

@@ -20,7 +20,8 @@
     // LoginController
     addressbook.controller('LoginController', ['$scope', '$log', '$location', '$cookieStore', 'API', function ($scope, $log, $location, $cookieStore, API) {
 
-        $scope.model = {};
+        $scope.model      = {};
+        $scope.loginError = false;
 
         $scope.authenticateUser = function () {
             $scope.showLoader();
@@ -32,7 +33,7 @@
                         $location.path('/');
                     }
                     else {
-                        // show login error message
+                        $scope.loginError = true;
                     }
                     $scope.hideLoader();
                 }, 
