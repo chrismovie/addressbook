@@ -16,6 +16,10 @@
                 templateUrl: 'views/edit.html',
                 controller: 'CreateContactController' 
             })
+            .when('/login', {
+                templateUrl: 'views/login.html',
+                controller: 'LoginController' 
+            })
             .otherwise({
               redirectTo: '/'
             });

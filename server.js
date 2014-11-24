@@ -32,10 +32,16 @@ app.use(bodyParser.json({ limit: 1000000000 }));
 app.listen(port);
 
 // APIS
+// ----------------------
+
+// authenticate user
+app.post('/api/authenticateUser', function (req, res) {
+
+});
 
 // GET all contacts
 app.get('/api/getAllContacts', function (req, res) {
-    var q = 'SELECT * FROM users INNER JOIN contactinfo ON users.userid = contactinfo.userid ORDER BY users.lastname'; 
+    var q = 'SELECT * FROM contacts INNER JOIN contactinfo ON contacts.userid = contactinfo.userid ORDER BY contacts.lastname'; 
     db.query(q, function (err, result) {
         if (err) { console.log(err); }
         res.json(result); 
@@ -44,7 +50,7 @@ app.get('/api/getAllContacts', function (req, res) {
 
 // GET contact by userid
 app.get('/api/getContactById/:userid', function (req, res) {
-    var q = 'SELECT * FROM users INNER JOIN contactinfo ON users.userid = contactinfo.userid WHERE users.userid = ' + req.params.userid;
+    var q = 'SELECT * FROM contacts INNER JOIN contactinfo ON contacts.userid = contactinfo.userid WHERE contacts.userid = ' + req.params.userid;
     db.query(q, function (err, result) {
         if (err) { console.log(err); }
         res.json(result[0]); 
@@ -62,7 +68,7 @@ app.post('/api/createContact', function (req, res) {
         req.body.lastname,
         req.body.imgurl
     ];
-    q1 = 'INSERT INTO users SET userid = ?, firstname = ?, lastname = ?, imgurl = ?';
+    q1 = 'INSERT INTO contacts SET userid = ?, firstname = ?, lastname = ?, imgurl = ?';
 
     values2 = [
         req.body.userid,
@@ -108,7 +114,7 @@ app.post('/api/editContact/:userid', function (req, res) {
         req.body.zip 
     ];
 
-    q = 'UPDATE users u INNER JOIN contactinfo c ON u.userid = c.userid SET u.firstname = ?, u.lastname = ?, u.imgurl = ?, c.email = ?, c.homephone = ?, c.cellphone = ?, c.workphone = ?, c.address = ?, c.address2 = ?, c.city = ?, c.state = ?, c.zip = ? WHERE c.userid = ' + req.params.userid + ' AND u.USERID = ' + req.params.userid;
+    q = 'UPDATE contacts c INNER JOIN contactinfo ci ON c.userid = ci.userid SET c.firstname = ?, c.lastname = ?, c.imgurl = ?, ci.email = ?, ci.homephone = ?, ci.cellphone = ?, ci.workphone = ?, ci.address = ?, ci.address2 = ?, ci.city = ?, ci.state = ?, ci.zip = ? WHERE ci.userid = ' + req.params.userid + ' AND c.USERID = ' + req.params.userid;
 
     db.query(q, values, function (err, result) {
         if (err) { console.log(err); }
@@ -118,7 +124,7 @@ app.post('/api/editContact/:userid', function (req, res) {
 
 // DELETE delete contact
 app.post('/api/deleteContact/:userid', function (req, res) {
-    var q = 'DELETE u, c FROM users u INNER JOIN contactinfo c ON u.userid = c.userid WHERE u.userid = ' + req.params.userid;
+    var q = 'DELETE c, ci FROM contacts c INNER JOIN contactinfo ci ON c.userid = ci.userid WHERE c.userid = ' + req.params.userid;
     db.query(q, function (err, result) {
         if (err) { console.log(err); }
         res.send(result);

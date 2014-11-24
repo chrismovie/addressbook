@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width; initial-scale=1; minimal-ui">
     <link rel="stylesheet" href="/styles/main.min.css" />
 </head>
-<body>
+<body ng-controller="BaseController">
 
-    <header>
+    <header ng-show="user">
         <a class="heading" href="#/">my <span>address book</span></a>
         <a class="add-contact" title="add contact" href="#/create">+</a>
     </header>

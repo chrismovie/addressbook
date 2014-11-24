@@ -1,0 +1,12 @@
+<form class="login-form" novalidate>
+    <h3>Login</h3>
+    <div class="input">
+        <input type="text" placeholder="username" ng-model="model.username" ng-model="model.username" />
+    </div>
+    <div class="input">
+        <input type="password" placeholder="password" ng-model="model.password" ng-model="model.password" />
+    </div>
+    <section class="input button">
+        <input type="button" value="login" ng-click="authenticateUser()" />
+    </section>
+</form>

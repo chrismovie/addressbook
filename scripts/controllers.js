@@ -2,6 +2,46 @@
 
     'use strict';
 
+    // BaseController
+    addressbook.controller('BaseController', ['$scope', '$location', '$cookieStore', function ($scope, $location, $cookieStore) {
+
+        $scope.$on('$routeChangeSuccess', function () {
+            $scope.user = $scope.getUserCookie();
+            if (!$scope.user) {
+                $location.path('/login');
+            }
+        });
+
+        $scope.getUserCookie = function () {
+            if (!$cookieStore.get('user')) {
+                return false;
+            }
+            return $cookieStore.get('user');
+        }
+
+    }]);
+
+    // LoginController
+    addressbook.controller('LoginController', ['$scope', '$log', '$location', 'API', function ($scope, $log, $location, API) {
+
+        $scope.model = {};
+
+        $scope.authenticateUser = function () {
+            $scope.showLoader();
+            API.httpRequest({ url: '/api/authenticateUser', method: 'POST', isArray: false }).query($scope.model, 
+                function (res) {
+                    $location.path('/');
+                    $scope.model = {};
+                    $scope.hideLoader();
+                }, 
+                function (error) {
+                    $log.debug(error);
+                }
+            );
+        };
+
+    }]);
+
     // AddressBookController 
     addressbook.controller('AddressBookController', ['$scope', '$log', 'API', function ($scope, $log, API) {
 
