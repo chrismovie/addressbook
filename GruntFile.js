@@ -142,7 +142,7 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          src: ['server.js', 'app/scripts/**/*.js', '!app/scripts/src/plugins/**/*.js',]
+          src: ['app/scripts/**/*.js', '!app/scripts/src/plugins/**/*.js',]
         }
       }
     }

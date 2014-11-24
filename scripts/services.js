@@ -34,3 +34,8 @@ services.factory('API', ['$resource', '$log', function ($resource, $log) {
 
     };
 }]);
+
+// shared variables
+services.service('sharedVars', function () {
+    return {};
+});

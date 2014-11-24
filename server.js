@@ -1,4 +1,5 @@
 var 
+    md5,
     mysql, 
     db,
     express, 
@@ -11,7 +12,8 @@ var
 // required modules
 express    = require('express');
 bodyParser = require('body-parser');
-mysql      = require('mysql'); 
+mysql      = require('mysql');
+md5        = require('MD5');
 
 // express app
 app        = express();
@@ -29,14 +31,19 @@ db.connect();
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false, limit: 1000000000 }));
 app.use(bodyParser.json({ limit: 1000000000 })); 
-app.listen(port);
+app.listen(port); 
 
 // APIS
 // ----------------------
 
 // authenticate user
 app.post('/api/authenticateUser', function (req, res) {
-
+    var pw = md5(req.body.password).substring(0,15);
+    var q  = "SELECT password FROM users WHERE username = '" + req.body.username + "'";
+    db.query(q, function (err, result) {
+        if (err) { console.log(err); } 
+        res.send({ status: result.length && pw === result[0].password ? 'success' : 'fail' });
+    }); 
 });
 
 // GET all contacts

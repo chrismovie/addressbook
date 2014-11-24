@@ -8,8 +8,12 @@
             var w = angular.element($window);
 
             w.on('orientationchange', function () {
-                w.scrollTop(0);
+                scope.toTop();
             });
+
+            scope.toTop = function () { 
+                w.scrollTop(0);
+            };
 
             scope.getProfileImg = function () {
                 var profileImgsSrc = $('#profile-avatar').attr('src');
