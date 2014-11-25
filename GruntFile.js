@@ -36,7 +36,6 @@ module.exports = function (grunt) {
       prod: {
         files: {
           'public/scripts/main.min.js': [
-            'bower_components/underscore/underscore-min.js',
             'bower_components/jquery/dist/jquery.min.js',
             'bower_components/angular/angular.min.js',
             'bower_components/angular-resource/angular-resource.min.js',
@@ -65,7 +64,7 @@ module.exports = function (grunt) {
 
     jasmine: {
       app: {
-        src: ["scripts/**/*.js"],
+        src: ["scripts/*.js"],
         options: {
           vendor: [
             'bower_components/jquery/dist/jquery.js',
@@ -79,15 +78,15 @@ module.exports = function (grunt) {
             'scripts/lib/**/*.js'
           ],
           helpers: [
-            'bower_components/jasmine-jquery/lib/jasmine-jquery.js'/*,
-            'app/scripts/jasmine/fakeResponses.js',
-            'app/scripts/jasmine/jasmine-setup.js'*/
+            'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
+            'scripts/tests/jasmine/spec_setup.js'
+            //'app/scripts/jasmine/fakeResponses.js'
           ],
-          specs: ["scripts/tests/**/*_spec.js"],
-          host: "http://localhost:3000/",
+          specs: ["scripts/tests/jasmine/specs/**/*_spec.js"],
+          host: "http://localhost:3001/",
           keepRunner: true,
           outfile: "scripts/tests/jasmine/SpecRunner.html"
-          // http://localhost:3001/app/scripts/jasmine/SpecRunner.html
+          // http://localhost:3001/scripts/tests/jasmine/SpecRunner.html
         }
       }
     },
@@ -112,9 +111,10 @@ module.exports = function (grunt) {
       main: {
         files: [
           'styles/**/*.less',
-          'scripts/**/*.js'
+          'scripts/*.js',
+          'scripts/tests/jasmine/specs/**/*_spec.js'
         ],
-        tasks: ['clean', 'less', 'uglify', 'cssmin', 'connect:server', 'jasmine:app', 'jshint'] 
+        tasks: ['clean', 'less', 'uglify', 'cssmin', 'jshint', 'connect:server', 'jasmine:app'] 
       }
     },
 
@@ -142,7 +142,7 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          src: ['app/scripts/**/*.js', '!app/scripts/src/plugins/**/*.js',]
+          src: ['scripts/**/*.js', '!scripts/lib/*.js']
         }
       }
     }
@@ -158,6 +158,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-  grunt.registerTask('default', ['clean', 'less', 'uglify', 'cssmin', 'connect:server', 'jasmine', 'jshint']);
-  grunt.registerTask('production', ['clean', 'less', 'uglify', 'cssmin']);
+  grunt.registerTask('default', [ 'clean', 'less', 'uglify', 'cssmin', 'jshint', 'connect:server', 'jasmine' ]);
+  grunt.registerTask('production', [ 'clean', 'less', 'uglify', 'cssmin' ]);
 };
