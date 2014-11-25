@@ -3,9 +3,10 @@
       autocomplete="off"
       trigger-on-keypress='{ "keycode":13, "method": "authenticateUser" }' novalidate>
     <h3 class="logo">my <span>address book</span></h3>
-    <div class="login-error" ng-if="loginError">invalid login credentials</div>
+    <div id="login-error" class="login-error" ng-if="loginError">invalid login credentials</div>
     <div class="input">
-        <input type="text"
+        <input id="username"
+               type="text"
                required
                autocorrect="off"
                autocapitalize="off"
@@ -14,7 +15,8 @@
                ng-model="model.username" />
     </div>
     <div class="input">
-        <input type="password" 
+        <input id="password"
+               type="password" 
                required
                autocorrect="off"
                autocapitalize="off"
@@ -23,7 +25,8 @@
                ng-model="model.password" />
     </div>
     <section class="input button">
-        <input type="button" 
+        <input id="login-btn"
+               type="button" 
                value="login" 
                ng-disabled="loginForm.$invalid"
                ng-click="authenticateUser()" />
