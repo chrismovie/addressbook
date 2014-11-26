@@ -44,7 +44,7 @@ app.post('/api/authenticateUser', function (req, res) {
         if (err) { console.log(err); } 
         res.send({ status: result.length && pw === result[0].password ? 'success' : 'fail' });
     }); 
-});
+}); 
 
 // GET all contacts
 app.get('/api/getAllContacts', function (req, res) {
