@@ -1,6 +1,8 @@
 <ng-include src="'partials/header.html'"></ng-include>
 
-<form class="edit-contact-form" novalidate>
+<form class="edit-contact-form" 
+      trigger-on-keypress='{ "keycode":13, "method": "submitForm" }'
+      novalidate>
 
     <h2><span ng-bind="action + ' contact'"></span></h2>
 

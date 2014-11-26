@@ -25,7 +25,7 @@
                 </div>
                 <div class="address">
                     <div class="truncate" ng-if="m.address" ng-bind="m.address + ' ' + m.address2"></div>
-                    <div class="truncate" ng-bind="(m.city || '') + (m.state || m.zip ? ', ' : '') + (m.state || '') + ' ' + (m.zip || '')"></div>
+                    <div class="truncate" ng-bind="(m.city || '') + (m.city ? ', ' : '') + (m.state || '') + ' ' + (m.zip || '')"></div>
                 </div>
             </div>
             <div class="actions">
