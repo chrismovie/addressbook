@@ -32,3 +32,6 @@ This project requires Node.js and MySQL
 3. In the first terminal window, type > nodemon server.js
 4. In the second terminal window, type > grunt to build the project
 5. Open a browser window and type > localhost:3000
+
+#### Login
+1. Once setup is complete, you can log into the project with username: test, password: test
