@@ -1,43 +1,49 @@
-describe('BaseController', function () {
+(function () {
 
-    var location, rootScope, cookieStore;
+    'use strict';
 
-    beforeEach(inject(function(_$httpBackend_, $rootScope, $cookieStore, $location, $controller) {
-        $httpBackend = _$httpBackend_;
-        rootScope    = $rootScope;
-        cookieStore  = $cookieStore;
-        location     = $location;
-        scope        = $rootScope.$new();
-        ctrl         = $controller('BaseController', {$scope:scope});
-    }));
+    describe('BaseController', function () {
 
-    afterEach(function () {
-        cookieStore.remove('loggedIn');
-    });
+        var location, rootScope, cookieStore;
 
-    it('should be defined', function () {
-        expect(ctrl).toBeDefined();
-    }); 
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $cookieStore, $location, $controller) {
+            $httpBackend = _$httpBackend_;
+            rootScope    = $rootScope;
+            cookieStore  = $cookieStore;
+            location     = $location;
+            scope        = $rootScope.$new();
+            ctrl         = $controller('BaseController', {$scope:scope});
+        }));
 
-    it('should redirect to login page if "loggedIn" cookie IS NOT defined', function () {
-        rootScope.$broadcast('$routeChangeSuccess');
-        expect(location.path()).toBe('/login');
-    });
+        afterEach(function () {
+            cookieStore.remove('loggedIn');
+        });
 
-    it('should not redirect to login page if "loggedIn" cookie IS defined', function () {
-        cookieStore.put('loggedIn', true);
-        rootScope.$broadcast('$routeChangeSuccess');
-        expect(location.path()).not.toBe('/login');
-    });
+        it('should be defined', function () {
+            expect(ctrl).toBeDefined();
+        }); 
 
-    describe('Method > logout', function () {
+        it('should redirect to login page if "loggedIn" cookie IS NOT defined', function () {
+            rootScope.$broadcast('$routeChangeSuccess');
+            expect(location.path()).toBe('/login');
+        });
 
-        it('should remove the cookie "loggedIn"', function () {
+        it('should not redirect to login page if "loggedIn" cookie IS defined', function () {
             cookieStore.put('loggedIn', true);
-            scope.logout();
-            expect(cookieStore.get('loggedIn')).not.toBeDefined();
+            rootScope.$broadcast('$routeChangeSuccess');
+            expect(location.path()).not.toBe('/login');
+        });
+
+        describe('Method > logout', function () {
+
+            it('should remove the cookie "loggedIn"', function () {
+                cookieStore.put('loggedIn', true);
+                scope.logout();
+                expect(cookieStore.get('loggedIn')).not.toBeDefined();
+            });
+
         });
 
     });
 
-});
+})();

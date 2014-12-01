@@ -142,7 +142,7 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          src: ['scripts/**/*.js', '!scripts/lib/*.js']
+          src: ['scripts/**/*.js', '!scripts/lib/*.js', '!scripts/tests/jasmine/spec_setup.js']
         }
       }
     }
