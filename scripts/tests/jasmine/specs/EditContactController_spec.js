@@ -33,13 +33,14 @@
             expect(scope.model).toBeDefined();
         });
 
-        it('should set scope.model with data corresponding to the userid passed in the $routeParams', function () {
+        it('should set scope.model.userid with userid passed in the $routeParams', function () {
             expect(scope.model.userid).toBe(12345);
         });
 
         describe('Method > submitForm', function () {
             
             beforeEach(function () {
+                location.path('/edit/12345');
                 spyOn(scope, 'getProfileImg').and.returnValue('/images/default_profile_img.png');
                 $httpBackend.expectPOST('/api/editContact/12345').respond(updateResponse);
                 scope.submitForm();
