@@ -66,7 +66,7 @@
                 scope.model      = contacts;
                 scope.showDialog = true;
                 scope.deleteId   = 12345;
-                $httpBackend.expectPOST('/api/deleteContact/12345').respond(deleteResponse);
+                $httpBackend.expectPOST('/api/deleteContact/12345').respond(updateResponse);
                 scope.deleteContact(scope.deleteId);
                 $httpBackend.flush();
             });

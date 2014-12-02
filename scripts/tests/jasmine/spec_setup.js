@@ -69,7 +69,7 @@ var contact = {
     "zip": "60631"
 };
 
-var deleteResponse = { 
+var updateResponse = { 
     "fieldCount": 0,
     "affectedRows": 2,
     "insertId": 0,

@@ -37,6 +37,21 @@
             expect(scope.model.userid).toBe(12345);
         });
 
+        describe('Method > submitForm', function () {
+            
+            beforeEach(function () {
+                spyOn(scope, 'getProfileImg').and.returnValue('/images/default_profile_img.png');
+                $httpBackend.expectPOST('/api/editContact/12345').respond(updateResponse);
+                scope.submitForm();
+                $httpBackend.flush();
+            });
+
+            it('should redirect bact to "/" on successful update', function () {
+                expect(location.path()).toEqual('/');
+            });
+
+        });
+
     });
 
 })();
