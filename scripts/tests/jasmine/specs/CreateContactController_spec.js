@@ -12,9 +12,7 @@
             cookieStore  = $cookieStore;
             location     = $location;
             scope        = $rootScope.$new();
-
             ctrl         = $controller('CreateContactController', { $scope:scope });
-
             createElement('<div global-directives />');
         }));
 
