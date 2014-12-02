@@ -23,10 +23,6 @@
             $httpBackend.flush();
         }));
 
-        afterEach(function () {
-            cookieStore.remove('loggedIn');
-        });
-
         it('should be defined', function () {
             expect(ctrl).toBeDefined();
         });
@@ -76,7 +72,7 @@
             });
             
             it('should remove the selected contact from the model', function () {
-                expect(scope.model.length).toBe(0);
+                expect(scope.model.length).toBe(1);
             });
 
             it('should set the value of scope.deleteId to null', function () {
