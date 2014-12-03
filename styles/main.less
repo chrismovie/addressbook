@@ -34,6 +34,18 @@
 .icon-check:before {
   content: "\e602"; 
 }
+.icon-cog:before {
+    content: "\e603"; 
+}
+.icon-logout:before {
+    content: "\e604"; 
+}
+.icon-profile:before {
+    content: "\e605"; 
+}
+.icon-plus:before {
+    content: "\e606"; 
+}
 
 // clearfix
 // --------------------------------------------------
@@ -277,37 +289,73 @@ input[type="button"] {
     }
 }
 
+// submenu
+// --------------------------------------------------
+.submenu {
+    background:#fff;
+    box-shadow:-6px 0px 15px -5px rgba(0,0,0,0.4);
+    -moz-box-shadow:-6px 0px 15px -5px rgba(0,0,0,0.4);
+    -webkit-box-shadow:-6px 0px 15px -5px rgba(0,0,0,0.4);
+    height:100%;
+    padding-top:45px;
+    position:fixed;
+    right:0;
+    width:33%;
+    top:0;
+    z-index:1;
+
+    @media(max-width:568px) {
+        width:100%;
+    }
+
+    li {
+        border-bottom:1px solid #ccc;
+        color:#666;
+        font-size:14px;
+
+        a {
+            color:#666;
+            display:block;
+            padding:15px;
+            .clearfix();
+
+            span {
+                font-size:1.3em;
+                float:left;
+                margin-right:12px;
+            }
+        }
+    }
+}
+
 // header 
 // --------------------------------------------------
 header {
     background-color:#333;
     left:0;
     line-height:45px;
-    padding:0 15px;
     position:fixed;
     right:0;
     top:0;
     .clearfix();
+    z-index:2;
 
-    .add-contact {
-        background:#555;
-        color:#fff;
-        cursor:pointer;
-        display:inline-block;
-        line-height:45px;
-        float:right;
-        font-size:2.5em;
-        font-weight:500;
-        line-height:30px;
-        margin-top:7.5px;
-        text-align:center;
-        width:30px;
-        .roundedCorners();
+    .logo {
+        margin-left:15px;
     }
-    .logout {
+    .menu-toggle {
+        color:#666;
+        cursor:pointer;
+        display:block;
         float:right;
-        color:#fff;
-        margin-left:20px;
+        font-size:1.5em;
+        line-height:47px;
+        text-align:center;
+        width:45px;
+
+        &.open {
+            background-color:#fff;
+        }
     }
 }
 
