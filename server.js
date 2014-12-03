@@ -39,12 +39,35 @@ app.listen(port);
 // authenticate user
 app.post('/api/authenticateUser', function (req, res) {
     var pw = md5(req.body.password).substring(0,15);
-    var q  = "SELECT password FROM users WHERE username = '" + req.body.username + "'";
+    var q  = "SELECT id, username, password FROM users WHERE username = '" + req.body.username + "'";
     db.query(q, function (err, result) {
         if (err) { console.log(err); } 
-        res.send({ status: result.length && pw === result[0].password ? 'success' : 'fail' });
+        res.send({ user: result.length && pw === result[0].password ? { id: result[0].id, username: result[0].username } : null }); 
     }); 
 }); 
+
+// update user
+app.post('/api/updateUser/:id', function (req, res) {
+    var 
+        isUpdatingPassword = req.body.oldpassword !== undefined && req.body.newpassword !== undefined, 
+        q, fields, values, pw
+    ;
+
+    if (isUpdatingPassword) {
+        pw     = md5(req.body.oldpassword).substring(0,15);
+        q      = "UPDATE users SET username = ?, password = ? WHERE id = " + req.params.id + " AND password = '" + pw + "'";
+        values = [ req.body.username, md5(req.body.newpassword) ]; 
+    }
+    else {
+        q      = 'UPDATE users SET username = ? WHERE id = ' + req.params.id;
+        values = [req.body.username];
+    }
+
+    db.query(q, values, function (err, result) {
+        if (err) { console.log(err); }
+        res.json(result); 
+    });
+});
 
 // GET all contacts
 app.get('/api/getAllContacts', function (req, res) {

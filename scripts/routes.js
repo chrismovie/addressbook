@@ -20,6 +20,10 @@
                 templateUrl: 'views/login.html',
                 controller: 'LoginController' 
             })
+            .when('/myuser', {
+                templateUrl: 'views/myuser.html',
+                controller: 'MyUserController' 
+            })
             .otherwise({
               redirectTo: '/'
             });

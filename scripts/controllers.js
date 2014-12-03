@@ -6,13 +6,13 @@
     addressbook.controller('BaseController', ['$scope', '$location', '$cookieStore', function ($scope, $location, $cookieStore) {
 
         $scope.$on('$routeChangeSuccess', function () {
-            if (!$cookieStore.get('loggedIn')) {
+            if (!$cookieStore.get('session')) {
                 $location.path('/login');
             }
         });
 
         $scope.logout = function () {
-            $cookieStore.remove('loggedIn');
+            $cookieStore.remove('session');
         };
 
     }]);
@@ -27,9 +27,9 @@
             $scope.showLoader();
             API.httpRequest({ url: '/api/authenticateUser', method: 'POST', isArray: false }).query($scope.model, 
                 function (res) {
-                    if (res.status === 'success') {
+                    if (res.user !== null) {
                         $scope.model = {};
-                        $cookieStore.put('loggedIn', true);
+                        $cookieStore.put('session', { id: res.user.id, username: res.user.username } );
                         $location.path('/');
                     }
                     else {
@@ -140,6 +140,33 @@
             API.httpRequest({ url: '/api/createContact', method: 'POST', isArray: false }).query($scope.model, 
                 function (res) {
                     $location.path('/');
+                }, 
+                function (error) {
+                    $log.debug(error);
+                }
+            );
+        };
+
+    }]);
+
+     // MyUserController
+    addressbook.controller('MyUserController', ['$scope', '$log', '$routeParams', '$cookieStore', '$location', 'API', function ($scope, $log, $routeParams, $cookieStore, $location, API) {
+
+        var cookie = $cookieStore.get('session');
+
+        $scope.model           = {};
+        $scope.model.username  = cookie.username;
+        $scope.sessionid       = cookie.id;
+
+        $scope.submitForm = function () {
+            API.httpRequest({ url: '/api/updateUser/' + $scope.sessionid, method: 'POST', isArray: false }).query($scope.model, 
+                function (res) {
+                    if (res.affectedRows > 0) {
+                        $cookieStore.put('session', { id: $scope.sessionid, username: $scope.model.username } );
+                        $scope.userUpdated = true;
+                        delete $scope.model.oldpassword;
+                        delete $scope.model.newpassword;
+                    }
                 }, 
                 function (error) {
                     $log.debug(error);

@@ -20,7 +20,7 @@
         }));
 
         afterEach(function () {
-            cookieStore.remove('loggedIn');
+            cookieStore.remove('session');
         });
 
         it('should be defined', function () {
@@ -30,7 +30,7 @@
         describe('Method > authenticateUser - successful login', function () {
 
             beforeEach(function () {
-                $httpBackend.expectPOST('/api/authenticateUser').respond({ status: 'success' });
+                $httpBackend.expectPOST('/api/authenticateUser').respond({ user: { id: 2, username: 'alaneicker' } });
                 location.path('/login');
                 scope.model = { username: 'alaneicker', password: 'tellnoone44' };
                 scope.authenticateUser();
@@ -45,8 +45,8 @@
                 expect(location.path()).toEqual('/');
             });
 
-            it('cookie "loggedIn" should be defined', function () {
-                expect(cookieStore.get('loggedIn')).toBeDefined();
+            it('cookie "session" should be defined', function () {
+                expect(cookieStore.get('session')).toBeDefined();
             });
 
         });
@@ -54,7 +54,7 @@
         describe('Method > authenticateUser - failed login', function () {
 
             beforeEach(function () {
-                $httpBackend.expectPOST('/api/authenticateUser').respond({ status: 'fail' });
+                $httpBackend.expectPOST('/api/authenticateUser').respond({ user: null });
                 location.path('/login');
                 scope.model = { username: 'alaneicker', password: 'tellnoone44' };
                 scope.authenticateUser();

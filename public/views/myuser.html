@@ -1,0 +1,31 @@
+<ng-include src="'partials/header.html'"></ng-include>
+
+<form class="update-user-form" 
+      trigger-on-keypress='{ "keycode":13, "method": "submitForm" }'
+      novalidate>
+
+    <h2>my user</h2>
+
+    <div ng-show="userUpdated" class="update-confirmation"><span class="icon-check"></span> user updated succesfully.</div>
+
+    <section>
+        <div class="input">
+            <input type="text" placeholder="username" ng-model="model.username" />
+        </div>
+
+        <h3>update password</h3>
+
+        <div class="input">
+            <input type="password" placeholder="old password" maxlength="15" ng-model="model.oldpassword" />
+        </div>
+
+        <div class="input">
+            <input type="password" placeholder="new password" maxlength="15" ng-model="model.newpassword" />
+        </div>
+    </section>
+
+    <section class="input button">
+        <input type="button" value="update user" ng-click="submitForm()" />
+    </section>
+
+</form>
