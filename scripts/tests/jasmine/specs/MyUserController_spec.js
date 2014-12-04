@@ -39,6 +39,8 @@
             beforeEach(function () {
                 $httpBackend.expectPOST('/api/updateUser/' + scope.sessionid).respond(updateResponse);
                 scope.model.username = 'test';
+                scope.model.oldpassword = 'secret';
+                scope.model.newpassword = 'newsecret';
                 scope.submitForm();
                 $httpBackend.flush();
             });
@@ -49,6 +51,14 @@
 
             it('should set scope.userUpdated to true', function () {
                 expect(scope.userUpdated).toBeTruthy();
+            });
+
+            it('should clear old password from model', function () {
+                expect(scope.model.oldpassword).not.toBeDefined();
+            });
+
+            it('should clear new password from model', function () {
+                expect(scope.model.newpassword).not.toBeDefined();
             });
 
         });
