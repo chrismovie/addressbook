@@ -24,6 +24,10 @@
                 templateUrl: 'views/myuser.html',
                 controller: 'MyUserController' 
             })
+            .when('/contact-print-list', {
+                templateUrl: 'views/contacts-printable-list.html',
+                controller: 'ContactPrintListController' 
+            })
             .otherwise({
               redirectTo: '/'
             });

@@ -1,0 +1,29 @@
+<div class="print-list-wrapper">
+
+    <table class="printable-address-book" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>email</th>
+                <th>phone</th>
+                <th>address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="contact-item" ng-repeat="m in model">
+                <td ng-bind="m.firstname + ' ' + m.lastname"></td>
+                <td ng-bind="(m.email ? m.email : '--')"></td>
+                <td>
+                    <div ng-bind="'h. ' + (m.homephone ? m.homephone : '--')"></div>
+                    <div ng-bind="'c. ' + (m.cellphone ? m.cellphone : '--')"></div>
+                    <div ng-bind="'w. ' + (m.workphone ? m.workphone : '--')"></div>
+                </td>
+                <td>
+                    <span ng-if="m.address" ng-bind="m.address + ' ' + m.address2"></span> 
+                    <span ng-bind="(m.city || '') + (m.city ? ', ' : '') + (m.state || '') + ' ' + (m.zip || '')"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table> <!-- /.address-book -->
+
+</div>

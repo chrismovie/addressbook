@@ -46,6 +46,9 @@
 .icon-plus:before {
     content: "\e606"; 
 }
+.icon-print:before {
+    content: "\e607"; 
+}
 
 // clearfix
 // --------------------------------------------------
@@ -384,6 +387,26 @@ header {
             font-size:1.2em; 
             font-weight:400;
             width:100%;
+        }
+    }
+
+    // Printable address book
+    .print-list-wrapper {
+        .printable-address-book {
+            color:#000;
+            font-size:11pt;
+            margin:0 auto;
+            max-width:100%;
+
+            td, th {
+                padding:8px;
+            }
+            th {
+                border-bottom:3pt solid #000;
+            }
+            td {
+                border-bottom:1pt solid #000;
+            }
         }
     }
 

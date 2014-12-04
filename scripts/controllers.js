@@ -47,11 +47,10 @@
     }]);
 
     // AddressBookController 
-    addressbook.controller('AddressBookController', ['$scope', '$log', '$cookieStore', 'API', function ($scope, $log,  $cookieStore, API) {
+    addressbook.controller('AddressBookController', ['$scope', '$log', '$cookieStore', '$window', '$timeout', 'API', function ($scope, $log,  $cookieStore, $window, $timeout, API) {
 
         $scope.$on('$routeChangeSuccess', function () {
             $scope.showLoader();
-            $scope.toTop();
         });
 
         API.httpRequest({ url: '/api/getAllContacts' }).query(
@@ -63,6 +62,12 @@
                 $log.debug(error);
             }
         );
+
+        $scope.printContactList = function () {
+            var newWin = $window.open('#/contact-print-list', '', 'top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+            newWin.focus();
+            $timeout(function () { newWin.print(); }, 500);
+        };
 
         $scope.showConfirmationDialog = function (userid) {
             $scope.showDialog = true;
@@ -91,9 +96,29 @@
 
     }]);
 
+    // ContactPrintListController
+    addressbook.controller('ContactPrintListController', ['$scope', 'API', function ($scope, API) {
+
+        $scope.$on('$routeChangeSuccess', function () {
+            $scope.showLoader();
+            $scope.toTop();
+        });
+
+        API.httpRequest({ url: '/api/getAllContacts' }).query(
+            function (res) {
+                $scope.model = res;
+                $scope.hideLoader();
+            }, 
+            function (error) {
+                $log.debug(error);
+            }
+        );
+
+    }]);
+
 
     // EditContactController
-    addressbook.controller('EditContactController', ['$scope', '$log', '$routeParams', '$cookieStore', '$location', 'API', function ($scope, $log, $routeParams, $cookieStore, $location, API) {
+    addressbook.controller('EditContactController', ['$scope', '$log', '$routeParams', '$location', 'API', function ($scope, $log, $routeParams, $location, API) {
 
         $scope.$on('$routeChangeSuccess', function () {
             $scope.showLoader();
@@ -128,7 +153,7 @@
     }]);
 
     // CreateContactController
-    addressbook.controller('CreateContactController', ['$scope', '$log', '$location', '$cookieStore', 'API', function ($scope, $log, $location, $cookieStore, API) {
+    addressbook.controller('CreateContactController', ['$scope', '$log', '$location', 'API', function ($scope, $log, $location, API) {
 
         $scope.action = 'create';
         $scope.model = {};
@@ -150,7 +175,7 @@
     }]);
 
      // MyUserController
-    addressbook.controller('MyUserController', ['$scope', '$log', '$routeParams', '$cookieStore', '$location', 'API', function ($scope, $log, $routeParams, $cookieStore, $location, API) {
+    addressbook.controller('MyUserController', ['$scope', '$log', '$cookieStore', 'API', function ($scope, $log, $cookieStore, API) {
 
         var cookie = $cookieStore.get('session');
 

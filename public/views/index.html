@@ -4,10 +4,10 @@
     <input type="text" placeholder="start typing to filter ..." ng-model="query">
 </div>
 
-<div class="address-book">
+<ul class="address-book">
 
     <!-- contact item template -->
-    <div class="contact-item" ng-repeat="m in model | filter:query">
+    <li class="contact-item" ng-repeat="m in model | filter:query">
         <div class="item-content">
             <img class="contact-avatar" ng-src="{{m.imgurl}}">
             <div class="contact-info">
@@ -33,9 +33,9 @@
                 <a class="icon-delete" href="" ng-click="showConfirmationDialog(m.userid)"></a>
             </div>
         </div>
-    </div> <!-- /.contact-item -->
+    </li> <!-- /.contact-item -->
 
-</div> <!-- /.address-book -->
+</ul> <!-- /.address-book -->
 
 <div ng-show="showDialog" class="dialog confirm-delete">
     <h3>are you sure you want to delete this contact?</h3>
