@@ -164,6 +164,7 @@
                     if (res.affectedRows > 0) {
                         $cookieStore.put('session', { id: $scope.sessionid, username: $scope.model.username } );
                         $scope.userUpdated = true;
+                        $scope.updatepasssword = null;
                         delete $scope.model.oldpassword;
                         delete $scope.model.newpassword;
                     }
