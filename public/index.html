@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<html ng-app="addressbook">
+<html ng-app="addressbook" ng-controller="BaseController">
 <head>
-    <title>Address Book</title>
+    <title ng-bind="pagetitle"></title>
     <meta name="viewport" content="width=device-width; initial-scale=1; minimal-ui">
     <link rel="stylesheet" href="/styles/main.min.css" />
 </head>
-<body ng-controller="BaseController">
-
-    <section class="main-content" ng-view global-directives>
-
-    </section>  <!-- /.main-content -->
-
+<body>
+    <section class="main-content" ng-view global-directives></section> 
     <script src="/scripts/main.min.js"></script>
 </body>
 </html>

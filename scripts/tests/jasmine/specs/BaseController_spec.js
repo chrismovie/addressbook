@@ -34,6 +34,22 @@
             expect(location.path()).not.toBe('/login');
         });
 
+        describe('Method > setPageTitle', function () {
+
+            it('should set the page title to the current page path', function () {
+                location.path('/create');
+                rootScope.$broadcast('$routeChangeSuccess');
+                expect(scope.pagetitle).toBe('Address Book | create');
+            });
+
+            it('should remove any ID from the page path before setting page title', function () {
+                location.path('/edit/12345');
+                rootScope.$broadcast('$routeChangeSuccess');
+                expect(scope.pagetitle).toBe('Address Book | edit');
+            });
+
+        });
+
         describe('Method > logout', function () {
 
             it('should remove the cookie "session"', function () {

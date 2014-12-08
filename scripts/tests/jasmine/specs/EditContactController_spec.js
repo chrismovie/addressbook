@@ -26,7 +26,7 @@
         }); 
 
         it('should set the value of scope.action to "edit"', function () {
-            expect(scope.action).toBe('edit');
+            expect(scope.action).toBe('update');
         });
 
         it('scope.model should be defined', function () {

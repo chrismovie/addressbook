@@ -6,10 +6,15 @@
     addressbook.controller('BaseController', ['$scope', '$location', '$cookieStore', function ($scope, $location, $cookieStore) {
 
         $scope.$on('$routeChangeSuccess', function () {
+            $scope.pagetitle = $scope.setPageTitle();
             if (!$cookieStore.get('session')) {
                 $location.path('/login');
             }
         });
+
+        $scope.setPageTitle = function () {
+            return 'Address Book | ' + ($location.path() !== '/' ? $location.path().replace(/\/|[0-9]/g,'') : 'home');
+        };
 
         $scope.logout = function () {
             $cookieStore.remove('session');
@@ -123,7 +128,7 @@
             $scope.showLoader();
         });
 
-        $scope.action = 'edit';
+        $scope.action = 'update';
 
         API.httpRequest({ url: '/api/getContactById/' + $routeParams.userid, isArray: false }).query(
             function (res) {
