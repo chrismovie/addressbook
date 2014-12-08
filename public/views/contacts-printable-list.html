@@ -19,8 +19,8 @@
                     <div ng-bind="'w. ' + (m.workphone ? m.workphone : '--')"></div>
                 </td>
                 <td>
-                    <span ng-if="m.address" ng-bind="m.address + ' ' + m.address2"></span> 
-                    <span ng-bind="(m.city || '') + (m.city ? ', ' : '') + (m.state || '') + ' ' + (m.zip || '')"></span>
+                    <div ng-if="m.address" ng-bind="m.address + ' ' + m.address2"></div> 
+                    <div ng-bind="(m.city || '') + (m.city ? ', ' : '') + (m.state || '') + ' ' + (m.zip || '')"></div>
                 </td>
             </tr>
         </tbody>

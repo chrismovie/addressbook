@@ -66,7 +66,7 @@
         $scope.printContactList = function () {
             var newWin = $window.open('#/contact-print-list', '', 'top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
             newWin.focus();
-            $timeout(function () { newWin.print(); }, 500);
+            $timeout(function () { newWin.print(); }, 800);
         };
 
         $scope.showConfirmationDialog = function (userid) {
@@ -101,7 +101,6 @@
 
         $scope.$on('$routeChangeSuccess', function () {
             $scope.showLoader();
-            $scope.toTop();
         });
 
         API.httpRequest({ url: '/api/getAllContacts' }).query(
