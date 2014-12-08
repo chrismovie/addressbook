@@ -36,6 +36,12 @@
 
         describe('Method > setPageTitle', function () {
 
+            it('should set the page title to the home if path is /', function () {
+                location.path('/');
+                rootScope.$broadcast('$routeChangeSuccess');
+                expect(scope.pagetitle).toBe('Address Book | home');
+            });
+
             it('should set the page title to the current page path', function () {
                 location.path('/create');
                 rootScope.$broadcast('$routeChangeSuccess');
