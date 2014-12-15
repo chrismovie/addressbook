@@ -56,17 +56,35 @@
 
         $scope.$on('$routeChangeSuccess', function () {
             $scope.showLoader();
+            $scope.getAllContacts();
         });
 
-        API.httpRequest({ url: '/api/getAllContacts' }).query(
-            function (res) {
-                $scope.model = res;
-                $scope.hideLoader();
-            }, 
-            function (error) {
-                $log.debug(error);
-            }
-        );
+        $scope.getAllContacts = function () {
+            API.httpRequest({ url: '/api/getAllContacts' }).query(
+                function (res) {
+                    $scope.model = res;
+                    $scope.hideLoader();
+                }, 
+                function (error) {
+                    $log.debug(error);
+                }
+            );
+        };
+
+        $scope.toggleAsFavorite = function (userid, isFavorite) {
+            $scope.showLoader();
+            API.httpRequest({ url: '/api/toogleAsFavorite/' + userid, method: 'POST', isArray: false }).query(
+                { isFavorite: (isFavorite === 0 ? 1 : 0) },
+                function (res) {
+                    if (res.affectedRows > 0) {
+                        $scope.getAllContacts();
+                    }
+                },
+                function (error) {
+                    $log.debug(error);
+                }
+            );
+        };
 
         $scope.printContactList = function () {
             var newWin = $window.open('#/contact-print-list', '', 'top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
@@ -99,7 +117,7 @@
             );
         };
 
-    }]);
+   }]);
 
     // ContactPrintListController
     addressbook.controller('ContactPrintListController', ['$scope', 'API', function ($scope, API) {

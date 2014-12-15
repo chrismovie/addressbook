@@ -20,6 +20,8 @@
             ctrl         = $controller('AddressBookController', {$scope:scope});
 
             createElement('<div global-directives />');
+
+            scope.getAllContacts();
             $httpBackend.flush();
         }));
 
