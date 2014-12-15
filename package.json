@@ -12,6 +12,8 @@
   "dependencies": {
     "mysql": "2.0.0-alpha3",
     "md5": "latest",
+    "nodemailer" : "0.7",
+    "nodemailer-smtp-transport": "0.1.13",
     "express": "4.10.1",
     "body-parser": "1.9.2",
     "bower": "~1.3.12",

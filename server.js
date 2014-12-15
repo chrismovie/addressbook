@@ -1,4 +1,7 @@
 var 
+    email,
+    nodemailer,
+    transporter,
     md5,
     mysql, 
     db,
@@ -14,6 +17,8 @@ express    = require('express');
 bodyParser = require('body-parser');
 mysql      = require('mysql');
 md5        = require('MD5');
+nodemailer = require('nodemailer');
+emailAuth  = require('./email')['auth']; 
 
 // express app
 app        = express();
@@ -33,8 +38,30 @@ app.use(bodyParser.urlencoded({ extended: false, limit: 1000000000 }));
 app.use(bodyParser.json({ limit: 1000000000 })); 
 app.listen(port); 
 
+// Nodemailer transport
+transporter = nodemailer.createTransport('SMTP', {
+    service: 'Gmail',
+    auth: emailAuth 
+});
+
 // APIS
 // ----------------------
+
+// POST Send Email
+app.post('/api/sendEmail', function (req, res) {
+
+    var mailOptions = {
+        from: req.body.sender, 
+        to: req.body.recipient, 
+        subject: req.body.subject, 
+        html: req.body.message
+    };  
+
+    transporter.sendMail(mailOptions, function (err, info) {
+        if (err) { console.log(err); }
+        res.send(info);
+    });
+});
 
 // authenticate user
 app.post('/api/authenticateUser', function (req, res) {
