@@ -78,15 +78,6 @@ app.get('/api/getAllContacts', function (req, res) {
     });
 });
 
-// toggle contact as favorite
-app.post('/api/toogleAsFavorite/:userid', function (req, res) {
-    var q = 'UPDATE contacts SET favorite = ? WHERE userid = ' + req.params.userid;
-    db.query(q, [req.body.isFavorite], function (err, result) {
-        if (err) { console.log(err); }
-        res.json(result);  
-    })
-});
-
 // GET contact by userid
 app.get('/api/getContactById/:userid', function (req, res) {
     var q = 'SELECT * FROM contacts INNER JOIN contactinfo ON contacts.userid = contactinfo.userid WHERE contacts.userid = ' + req.params.userid;
@@ -94,6 +85,15 @@ app.get('/api/getContactById/:userid', function (req, res) {
         if (err) { console.log(err); }
         res.json(result[0]); 
     });
+});
+
+// POST toggle contact as favorite
+app.post('/api/toogleAsFavorite/:userid', function (req, res) {
+    var q = 'UPDATE contacts SET favorite = ? WHERE userid = ' + req.params.userid;
+    db.query(q, [req.body.isFavorite], function (err, result) {
+        if (err) { console.log(err); }
+        res.json(result);  
+    })
 });
 
 // POST create new contact
@@ -169,7 +169,3 @@ app.post('/api/deleteContact/:userid', function (req, res) {
         res.send(result);
     }); 
 });
-
-
-
-
