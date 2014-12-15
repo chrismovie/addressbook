@@ -51,16 +51,17 @@ transporter = nodemailer.createTransport('SMTP', {
 app.post('/api/sendEmail', function (req, res) {
 
     var mailOptions = {
+        to: req.body.recipient,
         from: req.body.sender, 
-        to: req.body.recipient, 
+        sender: req.body.sender, 
         subject: req.body.subject, 
         html: req.body.message
-    };  
+    };   
 
     transporter.sendMail(mailOptions, function (err, info) {
         if (err) { console.log(err); }
-        res.send(info);
-    });
+        res.send(info); 
+    }); 
 });
 
 // authenticate user

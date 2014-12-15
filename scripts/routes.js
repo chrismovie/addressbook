@@ -12,6 +12,10 @@
                 templateUrl: 'views/edit.html',
                 controller: 'EditContactController' 
             })
+            .when('/send-email', {
+                templateUrl: 'views/send-email.html',
+                controller: 'SendEmailController' 
+            })
             .when('/create', {
                 templateUrl: 'views/edit.html',
                 controller: 'CreateContactController' 

@@ -117,7 +117,39 @@
             );
         };
 
-   }]);
+    }]);
+
+    // SendEmailController
+    addressbook.controller('SendEmailController', ['$scope', '$log', '$routeParams', 'API', function ($scope, $log, $routeParams, API) {
+
+        $scope.emailSent  = false;
+        $scope.emailError = false;
+
+        $scope.model = {
+            recipient: $routeParams.email
+        };
+
+        $scope.submitForm = function () {
+            $scope.showLoader();
+            API.httpRequest({ url: '/api/sendEmail', method: 'POST', isArray: false }).query($scope.model,
+                function (res) {
+                    if (res.messageId) {
+                        $scope.emailSent = true;
+                        $scope.model = {};
+                        $scope.hideLoader();
+                    }
+                    else {
+                        $scope.emailError = true;
+                    }
+                }, 
+                function (error) {
+                    $log.debug(error);
+                }
+            );
+        };
+
+    }]);
+
 
     // ContactPrintListController
     addressbook.controller('ContactPrintListController', ['$scope', 'API', function ($scope, API) {

@@ -1,0 +1,32 @@
+<ng-include src="'partials/header.html'"></ng-include>
+
+<form class="email-form" 
+      trigger-on-keypress='{ "keycode":13, "method": "submitForm" }'
+      novalidate>
+
+    <h2>Send email to: <span ng-bind="model.recipient"></span></h2>
+
+    <div ng-show="emailSent == true" class="confirmation"><span class="icon-check"></span> Mail sent!</div> 
+    <div ng-show="emailError == true" class="error">Mail could not be sent.</div> 
+
+    <section>
+
+        <div class="input">
+            <input type="text" placeholder="from" ng-model="model.sender" />
+        </div>
+
+        <div class="input">
+            <input type="text" placeholder="Subject" ng-model="model.subject" />
+        </div>
+
+        <div class="input">
+            <textarea placeholder="message" ng-model="model.message"></textarea>
+        </div>
+
+    </section>
+
+    <section class="input button">
+        <input type="button" value="send email" ng-click="submitForm()" />
+    </section>
+
+</form>

@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="actions">
-                <a class="icon-email" ng-href="#/send-email/{{m.userid}}"></a>
+                <a class="icon-email" ng-href="#/send-email?email={{m.email}}"></a>
                 <a class="icon-edit" ng-href="#/edit/{{m.userid}}"></a>
                 <a class="icon-delete" href="" ng-click="showConfirmationDialog(m.userid)"></a>
                 <a class="icon-favorite" ng-class="m.favorite == 1 ? 'favorite' : ''" href="" ng-click="toggleAsFavorite(m.userid, m.favorite)"></a>
