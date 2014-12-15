@@ -42,7 +42,7 @@ app.listen(port);
 transporter = nodemailer.createTransport('SMTP', {
     service: 'Gmail',
     auth: emailAuth 
-});
+}); 
 
 // APIS
 // ----------------------
@@ -71,9 +71,9 @@ app.post('/api/authenticateUser', function (req, res) {
         if (err) { console.log(err); } 
         res.send({ user: result.length && pw === result[0].password ? { id: result[0].id, username: result[0].username } : null }); 
     }); 
-}); 
+});  
 
-// update user
+// update user 
 app.post('/api/updateUser/:id', function (req, res) {
     var 
         isUpdatingPassword = req.body.oldpassword !== undefined && req.body.newpassword !== undefined, 
