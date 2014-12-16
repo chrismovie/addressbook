@@ -71,7 +71,7 @@ var contact = {
 
 var updateResponse = { 
     "fieldCount": 0,
-    "affectedRows": 2,
+    "affectedRows": 1,
     "insertId": 0,
     "serverStatus": 34,
     "warningCount": 0,

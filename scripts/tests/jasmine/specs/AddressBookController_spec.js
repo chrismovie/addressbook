@@ -87,6 +87,23 @@
 
         });
 
+        describe('Method > toggleAsFavorite', function () {
+
+            var getAllContactsSpy;
+
+            beforeEach(function () {
+                getAllContactsSpy = spyOn(scope, 'getAllContacts');
+                $httpBackend.expectPOST('/api/toogleAsFavorite/20035').respond(updateResponse);
+                scope.toggleAsFavorite(20035, 0);
+                $httpBackend.flush();
+            });
+
+            it('should call scope.getAllContacts', function () {
+                expect(getAllContactsSpy).toHaveBeenCalled();
+            });
+
+        });
+
     });
 
 })();
