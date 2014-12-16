@@ -1,32 +1,51 @@
 <ng-include src="'partials/header.html'"></ng-include>
 
 <form class="email-form" 
+      name="emailForm"
       trigger-on-keypress='{ "keycode":13, "method": "submitForm" }'
       novalidate>
 
     <h2>Send email to: <span ng-bind="model.recipient"></span></h2>
     
-    <div ng-show="emailSent == true" class="confirmation"><span class="icon-check"></span> Mail sent!</div> 
-    <div ng-show="emailError == true" class="error">Mail could not be sent.</div> 
+    <!-- email sent success message -->
+    <div ng-show="emailSent == true" class="confirmation">
+        <span class="icon-check"></span> Mail sent!
+    </div> 
+
+    <!-- email failure message -->
+    <div ng-show="emailError == true" class="error">
+        Mail could not be sent.
+    </div> 
 
     <section>
 
         <div class="input">
-            <input type="text" placeholder="from" ng-model="model.sender" />
+            <input type="text" 
+                   placeholder="from" 
+                   ng-model="model.sender" 
+                   required />
         </div>
 
         <div class="input">
-            <input type="text" placeholder="Subject" ng-model="model.subject" />
+            <input type="text" 
+                   placeholder="Subject" 
+                   ng-model="model.subject" 
+                   required />
         </div>
 
         <div class="input">
-            <textarea placeholder="message" ng-model="model.message"></textarea>
+            <textarea placeholder="message" 
+                      ng-model="model.message" 
+                      required></textarea>
         </div>
 
     </section>
 
     <section class="input button">
-        <input type="button" value="send email" ng-click="submitForm()" />
+        <input type="button" 
+               value="send email" 
+               ng-click="submitForm()" 
+               ng-disabled="emailForm.$invalid" />
     </section>
 
 </form>

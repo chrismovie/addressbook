@@ -238,8 +238,10 @@
             API.httpRequest({ url: '/api/sendEmail', method: 'POST', isArray: false }).query($scope.model,
                 function (res) {
                     if (res.messageId) {
+                        delete $scope.model.sender;
+                        delete $scope.model.subject;
+                        delete $scope.model.message;
                         $scope.emailSent = true;
-                        $scope.model = {};
                         $scope.hideLoader();
                     }
                     else {
