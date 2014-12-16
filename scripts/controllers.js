@@ -245,7 +245,7 @@
                         $scope.emailSent = true;
                     }
                     else {
-                        emailError = true;
+                        $scope.emailError = true;
                     }
                     $scope.hideLoader();
                 }, 
