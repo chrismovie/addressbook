@@ -2,55 +2,6 @@
 
     'use strict';
 
-    // BaseController
-    addressbook.controller('BaseController', ['$scope', '$location', '$cookieStore', function ($scope, $location, $cookieStore) {
-
-        $scope.$on('$routeChangeSuccess', function () {
-            $scope.pagetitle = $scope.setPageTitle();
-            if (!$cookieStore.get('session')) {
-                $location.path('/login');
-            }
-        });
-
-        $scope.setPageTitle = function () {
-            return 'Address Book | ' + ($location.path() !== '/' ? $location.path().replace(/\/|[0-9]/g,'') : 'home');
-        };
-
-        $scope.logout = function () {
-            $cookieStore.remove('session');
-        };
-
-    }]);
-
-    // LoginController
-    addressbook.controller('LoginController', ['$scope', '$log', '$location', '$cookieStore', 'API', function ($scope, $log, $location, $cookieStore, API) {
-
-        $scope.model      = {};
-        $scope.loginError = false;
-
-        $scope.authenticateUser = function () {
-            $scope.showLoader();
-            API.httpRequest({ url: '/api/authenticateUser', method: 'POST', isArray: false }).query($scope.model, 
-                function (res) {
-                    if (res.user !== null) {
-                        $scope.model = {};
-                        $cookieStore.put('session', { id: res.user.id, username: res.user.username } );
-                        $location.path('/');
-                    }
-                    else {
-                        $scope.loginError = true;
-                    }
-                    $scope.hideLoader();
-                }, 
-                function (error) {
-                    $scope.hideLoader();
-                    $log.debug(error);
-                }
-            );
-        };
-
-    }]);
-
     // AddressBookController 
     addressbook.controller('AddressBookController', ['$scope', '$log', '$cookieStore', '$window', '$timeout', 'API', function ($scope, $log,  $cookieStore, $window, $timeout, API) {
 
@@ -119,37 +70,25 @@
 
     }]);
 
-    // SendEmailController
-    addressbook.controller('SendEmailController', ['$scope', '$log', '$routeParams', 'API', function ($scope, $log, $routeParams, API) {
+    // BaseController
+    addressbook.controller('BaseController', ['$scope', '$location', '$cookieStore', function ($scope, $location, $cookieStore) {
 
-        $scope.emailSent  = false;
-        $scope.emailError = false;
+        $scope.$on('$routeChangeSuccess', function () {
+            $scope.pagetitle = $scope.setPageTitle();
+            if (!$cookieStore.get('session')) {
+                $location.path('/login');
+            }
+        });
 
-        $scope.model = {
-            recipient: $routeParams.email
+        $scope.setPageTitle = function () {
+            return 'Address Book | ' + ($location.path() !== '/' ? $location.path().replace(/\/|[0-9]/g,'') : 'home');
         };
 
-        $scope.submitForm = function () {
-            $scope.showLoader();
-            API.httpRequest({ url: '/api/sendEmail', method: 'POST', isArray: false }).query($scope.model,
-                function (res) {
-                    if (res.messageId) {
-                        $scope.emailSent = true;
-                        $scope.model = {};
-                        $scope.hideLoader();
-                    }
-                    else {
-                        $scope.emailError = true;
-                    }
-                }, 
-                function (error) {
-                    $log.debug(error);
-                }
-            );
+        $scope.logout = function () {
+            $cookieStore.remove('session');
         };
 
     }]);
-
 
     // ContactPrintListController
     addressbook.controller('ContactPrintListController', ['$scope', 'API', function ($scope, API) {
@@ -170,6 +109,27 @@
 
     }]);
 
+    // CreateContactController
+    addressbook.controller('CreateContactController', ['$scope', '$log', '$location', 'API', function ($scope, $log, $location, API) {
+
+        $scope.action = 'create';
+        $scope.model = {};
+
+        $scope.submitForm = function () {
+            $scope.showLoader();
+            $scope.model.imgurl = $scope.getProfileImg();
+            $scope.model.userid = Math.round(Math.random() * 100000);
+            API.httpRequest({ url: '/api/createContact', method: 'POST', isArray: false }).query($scope.model, 
+                function (res) {
+                    $location.path('/');
+                }, 
+                function (error) {
+                    $log.debug(error);
+                }
+            );
+        };
+
+    }]);
 
     // EditContactController
     addressbook.controller('EditContactController', ['$scope', '$log', '$routeParams', '$location', 'API', function ($scope, $log, $routeParams, $location, API) {
@@ -206,21 +166,28 @@
 
     }]);
 
-    // CreateContactController
-    addressbook.controller('CreateContactController', ['$scope', '$log', '$location', 'API', function ($scope, $log, $location, API) {
+    // LoginController
+    addressbook.controller('LoginController', ['$scope', '$log', '$location', '$cookieStore', 'API', function ($scope, $log, $location, $cookieStore, API) {
 
-        $scope.action = 'create';
-        $scope.model = {};
+        $scope.model      = {};
+        $scope.loginError = false;
 
-        $scope.submitForm = function () {
+        $scope.authenticateUser = function () {
             $scope.showLoader();
-            $scope.model.imgurl = $scope.getProfileImg();
-            $scope.model.userid = Math.round(Math.random() * 100000);
-            API.httpRequest({ url: '/api/createContact', method: 'POST', isArray: false }).query($scope.model, 
+            API.httpRequest({ url: '/api/authenticateUser', method: 'POST', isArray: false }).query($scope.model, 
                 function (res) {
-                    $location.path('/');
+                    if (res.user !== null) {
+                        $scope.model = {};
+                        $cookieStore.put('session', { id: res.user.id, username: res.user.username } );
+                        $location.path('/');
+                    }
+                    else {
+                        $scope.loginError = true;
+                    }
+                    $scope.hideLoader();
                 }, 
                 function (error) {
+                    $scope.hideLoader();
                     $log.debug(error);
                 }
             );
@@ -228,7 +195,7 @@
 
     }]);
 
-     // MyUserController
+    // MyUserController
     addressbook.controller('MyUserController', ['$scope', '$log', '$cookieStore', 'API', function ($scope, $log, $cookieStore, API) {
 
         var cookie = $cookieStore.get('session');
@@ -246,6 +213,37 @@
                         $scope.updatepasssword = null;
                         delete $scope.model.oldpassword;
                         delete $scope.model.newpassword;
+                    }
+                }, 
+                function (error) {
+                    $log.debug(error);
+                }
+            );
+        };
+
+    }]);
+
+    // SendEmailController
+    addressbook.controller('SendEmailController', ['$scope', '$log', '$routeParams', 'API', function ($scope, $log, $routeParams, API) {
+
+        $scope.emailSent  = false;
+        $scope.emailError = false;
+
+        $scope.model = {
+            recipient: $routeParams.email
+        };
+
+        $scope.submitForm = function () {
+            $scope.showLoader();
+            API.httpRequest({ url: '/api/sendEmail', method: 'POST', isArray: false }).query($scope.model,
+                function (res) {
+                    if (res.messageId) {
+                        $scope.emailSent = true;
+                        $scope.model = {};
+                        $scope.hideLoader();
+                    }
+                    else {
+                        $scope.emailError = true;
                     }
                 }, 
                 function (error) {
