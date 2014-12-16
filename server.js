@@ -2,6 +2,7 @@ var
     md5,
     mysql, 
     db,
+    apikeys,
     express, 
     bodyParser,
     postmark,
@@ -15,7 +16,8 @@ express    = require('express');
 bodyParser = require('body-parser');
 mysql      = require('mysql');
 md5        = require('MD5');
-postmark   = require('postmark')('a4bbd714-4588-484c-8c26-fa20bdfaaeb8');
+apikeys    = require('./apikeys');
+postmark   = require('postmark')(apikeys.postmark);
 
 // express app
 app        = express();
