@@ -1,12 +1,10 @@
 var 
-    email,
-    nodemailer,
-    transporter,
     md5,
     mysql, 
     db,
     express, 
     bodyParser,
+    postmark,
     app, 
     port, 
     env
@@ -17,8 +15,7 @@ express    = require('express');
 bodyParser = require('body-parser');
 mysql      = require('mysql');
 md5        = require('MD5');
-nodemailer = require('nodemailer');
-emailAuth  = require('./email')['auth']; 
+postmark   = require('postmark')('a4bbd714-4588-484c-8c26-fa20bdfaaeb8');
 
 // express app
 app        = express();
@@ -38,30 +35,22 @@ app.use(bodyParser.urlencoded({ extended: false, limit: 1000000000 }));
 app.use(bodyParser.json({ limit: 1000000000 })); 
 app.listen(port); 
 
-// Nodemailer transport
-transporter = nodemailer.createTransport('SMTP', {
-    service: 'Gmail',
-    auth: emailAuth 
-}); 
 
 // APIS
 // ----------------------
 
 // POST Send Email
 app.post('/api/sendEmail', function (req, res) {
-
-    var mailOptions = {
-        to: req.body.recipient,
-        from: req.body.sender, 
-        sender: req.body.sender, 
-        subject: req.body.subject, 
-        html: req.body.message
-    };   
-
-    transporter.sendMail(mailOptions, function (err, info) {
-        if (err) { console.log(err); }
-        res.send(info); 
-    }); 
+    postmark.send({
+        'From'     : req.body.name + ' <alaneicker@alan-eicker.com>', 
+        'ReplyTo'  : req.body.sender,
+        'To'       : req.body.recipient, 
+        'Subject'  : req.body.subject, 
+        'TextBody' : req.body.message
+    }, function (err, success) {
+        if (err) { console.log(err); } 
+        res.send(success);
+    });
 });
 
 // authenticate user

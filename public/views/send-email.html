@@ -21,7 +21,14 @@
 
         <div class="input">
             <input type="text" 
-                   placeholder="from" 
+                   placeholder="name" 
+                   ng-model="model.name" 
+                   required />
+        </div>
+
+        <div class="input">
+            <input type="text" 
+                   placeholder="email address" 
                    ng-model="model.sender" 
                    required />
         </div>
