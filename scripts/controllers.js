@@ -135,12 +135,15 @@
     // CreateGroupController
     addressbook.controller('CreateGroupController', ['$scope', '$log', '$location', 'API', function ($scope, $log, $location, API) {
 
-        $scope.formData = {};
-        $scope.userids = [];
+        $scope.$on('$routeChangeSuccess', function () {
+            $scope.showLoader();
+            $scope.formData = {};
+            $scope.userids  = [];
+        });
 
         API.httpRequest({ url: '/api/getAllContacts' }).query(
             function (res) {
-                $scope.model = res;
+                $scope.model = res.filter(function (item) { return item.group === ''; });
                 $scope.hideLoader();
             }, 
             function (error) {
@@ -161,9 +164,10 @@
         $scope.submitForm = function () {
             
             $scope.formData.userids = $scope.userids;
-            
             $scope.showConfirmation = false;
             $scope.showError        = false;
+
+            $scope.showLoader();
 
             API.httpRequest({ url: '/api/addContactGroup', method: 'POST', isArray: false }).query($scope.formData,
                 function (res) {
