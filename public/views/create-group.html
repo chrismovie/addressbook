@@ -1,0 +1,60 @@
+<ng-include src="'partials/header.html'"></ng-include>
+
+<form class="create-group" 
+      name="createGroup"
+      trigger-on-keypress='{ "keycode":13, "method": "submitForm" }'
+      novalidate>
+
+    <h2>create new group</h2>
+
+    <section>
+        
+        <div class="input">
+            <input type="text" 
+                   placeholder="group name" 
+                   ng-model="model.groupName" 
+                   required />
+        </div>
+
+    </section>
+
+    <section>
+
+        <h3>select contacts to add to this group</h3>
+
+        <ul class="contact-list">
+
+            <div ng-repeat="m in model | filter:query"
+                 ng-class="{'contact-item': !isSelected, 'contact-item selected': isSelected}"
+                 ng-init="isSelected = false"
+                 ng-click="isSelected = !isSelected"
+                 ng-click="addOrRemoveFromGroup(m.userid);" >
+                <div class="item-content">
+                    <img class="contact-avatar" ng-src="{{m.imgurl}}">
+                    <span class="contact-name" ng-bind="m.firstname + ' ' + m.lastname"></span>
+                    <span class="icon-check"></span>
+                </div>
+            </div>
+
+        </ul> <!-- /.contacts -->
+
+    </section>
+
+    <section class="input button">
+        <input type="button" 
+               value="create group" 
+               ng-click="submitForm()" 
+               ng-disabled="createGroup.$invalid" />
+    </section>
+
+</form>
+
+<!--
+UPDATE 
+contacts 
+SET 
+group=`family` 
+WHERE 
+userid
+in (46251,92081)
+-->

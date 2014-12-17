@@ -13,7 +13,7 @@
             <div class="contact-info">
                 <h3 ng-bind="m.firstname + ' ' + m.lastname"></h3>
                 <div class="email" ng-if="m.email">
-                    <a class="truncate" ng-href="{{m.email}}" ng-bind="m.email"></a>
+                    <a class="truncate" ng-href="#/send-email?email={{m.email}}" ng-bind="m.email"></a>
                 </div>
                 <div class="email" ng-if="!m.email">
                     e. --

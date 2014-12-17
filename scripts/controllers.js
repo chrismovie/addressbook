@@ -8,6 +8,7 @@
         $scope.$on('$routeChangeSuccess', function () {
             $scope.showLoader();
             $scope.getAllContacts();
+            $scope.toTop();
         });
 
         $scope.getAllContacts = function () {
@@ -127,6 +128,32 @@
                     $log.debug(error);
                 }
             );
+        };
+
+    }]);
+
+    // CreateGroupController
+    addressbook.controller('CreateGroupController', ['$scope', '$log', '$location', 'API', function ($scope, $log, $location, API) {
+
+        $scope.model = {};
+        $scope.userids = [];
+
+        API.httpRequest({ url: '/api/getAllContacts' }).query(
+            function (res) {
+                $scope.model = res;
+                $scope.hideLoader();
+            }, 
+            function (error) {
+                $log.debug(error);
+            }
+        );
+
+        $scope.addOrRemoveFromGroup = function (userid) {
+
+        };
+
+        $scope.submitForm = function () {
+            $scope.model.userids = $scope.userids;
         };
 
     }]);

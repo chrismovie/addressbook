@@ -26,35 +26,39 @@
 }
 
 .icon-edit:before {
-  content: "\e600";
-}
-.icon-delete:before {
-  content: "\e601"; 
-}
-.icon-check:before {
-  content: "\e602"; 
-}
-.icon-cog:before {
-    content: "\e603"; 
-}
-.icon-logout:before {
-    content: "\e604"; 
-}
-.icon-profile:before {
-    content: "\e605"; 
-}
-.icon-plus:before {
-    content: "\e606"; 
+    content: "\e600";
 }
 .icon-print:before {
-    content: "\e607"; 
-}
-.icon-favorite:before {
-    content: "\e608"; 
+    content: "\e601"; 
 }
 .icon-email:before {
+    content: "\e602"; 
+}
+.icon-profile:before {
+    content: "\e603"; 
+}
+.icon-group:before {
+    content: "\e604"; 
+}
+.icon-cog:before {
+    content: "\e605"; 
+}
+.icon-delete:before {
+    content: "\e606"; 
+}
+.icon-favorite:before {
+    content: "\e607"; 
+}
+.icon-check:before {
+    content: "\e608"; 
+}
+.icon-plus:before {
     content: "\e609"; 
 }
+.icon-logout:before {
+    content: "\e60a"; 
+}
+
 
 // clearfix
 // --------------------------------------------------
@@ -254,6 +258,58 @@ h3 {
 
 // forms
 // --------------------------------------------------
+form {
+
+    &:not(.login-form) {
+
+        .scrollOverflowY();
+        .clearfix();
+
+        h2 {
+            margin:20px;
+        }
+
+        section {
+            padding:0 20px 20px;
+            width:50%;
+
+            &.left {
+                float:left;
+            }
+
+            &.right {
+                float:right;
+            }
+
+            @media(max-width:768px) {
+                float:none;
+                width:100%;
+            }
+
+            .profile-avatar-wrap {
+                float:left;
+                margin-bottom:20px;
+
+                img {
+                    height:130px;
+                    margin-right:20px;
+                    width:130px;
+                    .roundedCorners(@radius:50%);
+                }
+            }
+
+            #uploader {
+                margin-top:15px;
+            }
+
+            input[type="button"] {
+                @media(max-width:400px) {
+                    width:100%;
+                }
+            }
+        }
+    }
+}
 
 // prevent glow around form elements
 button, input, select, textarea {
@@ -427,6 +483,43 @@ header {
         }
     }
 
+    .contact-list {
+
+        .contact-item {
+            .clearfix();
+            cursor:pointer;
+            line-height:35px;
+            padding:8px;
+
+            .contact-avatar {
+                float:left;
+                height:35px;
+                margin-right:10px;
+                width:35px;
+                .roundedCorners(@radius:50%);
+            }
+            .contact-name {
+                display:inline-block;
+                float:left;
+            }
+             .icon-check {
+                color:#ccc;
+                display:inline-block;
+                float:right;
+                font-size:1.5em;
+                line-height:35px;
+            }
+            &:nth-child(even) {
+                background-color:#ddd;
+            }
+            &.selected {
+                .icon-check {
+                    color:#55B019;
+                }
+            }
+        }
+    }
+
     // Address book
     .address-book {
         .scrollOverflowY();
@@ -500,59 +593,6 @@ header {
         }
     }
 
-}
-
-// edit contact form
-// --------------------------------------------------
-.edit-contact-form, 
-.update-user-form,
-.email-form {
-    .scrollOverflowY();
-    .clearfix();
-
-    h2 {
-        margin:20px;
-    }
-
-    section {
-        padding:0 20px 20px;
-        width:50%;
-
-        &.left {
-            float:left;
-        }
-
-        &.right {
-            float:right;
-        }
-
-        @media(max-width:768px) {
-            float:none;
-            width:100%;
-        }
-
-        .profile-avatar-wrap {
-            float:left;
-            margin-bottom:20px;
-
-            img {
-                height:130px;
-                margin-right:20px;
-                width:130px;
-                .roundedCorners(@radius:50%);
-            }
-        }
-
-        #uploader {
-            margin-top:15px;
-        }
-
-        input[type="button"] {
-            @media(max-width:400px) {
-                width:100%;
-            }
-        }
-    }
 }
 
 // email form

@@ -20,6 +20,10 @@
                 templateUrl: 'views/edit.html',
                 controller: 'CreateContactController' 
             })
+            .when('/create-group', {
+                templateUrl: 'views/create-group.html',
+                controller: 'CreateGroupController' 
+            })
             .when('/login', {
                 templateUrl: 'views/login.html',
                 controller: 'LoginController' 
