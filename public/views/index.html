@@ -9,6 +9,7 @@
     <!-- contact item template -->
     <li class="contact-item" ng-repeat="m in model | filter:query">
         <div class="item-content">
+            <div class="group-tag" ng-show="m.group != ''" ng-class="m.group" ng-bind="m.group"></div>
             <img class="contact-avatar" ng-src="{{m.imgurl}}">
             <div class="contact-info">
                 <h3 ng-bind="m.firstname + ' ' + m.lastname"></h3>

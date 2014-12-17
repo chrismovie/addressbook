@@ -25,14 +25,15 @@
     </section>
 
     <section>
-        <h3>select contacts to add to this group</h3>
+
+        <h3>you have <span ng-bind="model.length"></span> ungrouped contacts</h3>
 
         <ul class="contact-list">
 
             <div ng-repeat="m in model | filter:query"
                  ng-class="{'contact-item': !isSelected, 'contact-item selected': isSelected}"
                  ng-init="isSelected = false"
-                 ng-click="isSelected = !isSelected; addOrRemoveFromGroup(m.userid);"
+                 ng-click="isSelected = !isSelected; addOrRemoveFromGroup(m.userid);">
                 <div class="item-content">
                     <img class="contact-avatar" ng-src="{{m.imgurl}}">
                     <span class="contact-name" ng-bind="m.firstname + ' ' + m.lastname"></span>
