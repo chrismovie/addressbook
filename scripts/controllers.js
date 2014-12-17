@@ -135,7 +135,7 @@
     // CreateGroupController
     addressbook.controller('CreateGroupController', ['$scope', '$log', '$location', 'API', function ($scope, $log, $location, API) {
 
-        $scope.model = {};
+        $scope.formData = {};
         $scope.userids = [];
 
         API.httpRequest({ url: '/api/getAllContacts' }).query(
@@ -149,11 +149,36 @@
         );
 
         $scope.addOrRemoveFromGroup = function (userid) {
-
+            var userIdIndex = $scope.userids.indexOf(userid);
+            if (userIdIndex !== -1) {
+                $scope.userids.splice(userIdIndex, 1);
+            }
+            else {
+                $scope.userids.push(userid);
+            }
         };
 
         $scope.submitForm = function () {
-            $scope.model.userids = $scope.userids;
+            
+            $scope.formData.userids = $scope.userids;
+            
+            $scope.showConfirmation = false;
+            $scope.showError        = false;
+
+            API.httpRequest({ url: '/api/addContactGroup', method: 'POST', isArray: false }).query($scope.formData,
+                function (res) {
+                    if (res.affectedRows > 0) {
+                        $scope.showConfirmation = true;
+                    }
+                    else {
+                        $scope.showError = true;
+                    }
+                    $scope.hideLoader();
+                },
+                function (error) {
+                    $log.debug(error);
+                }
+            );
         };
 
     }]);
@@ -269,10 +294,10 @@
                         delete $scope.model.sender;
                         delete $scope.model.subject;
                         delete $scope.model.message;
-                        $scope.emailSent = true;
+                        $scope.showConfirmation = true;
                     }
                     else {
-                        $scope.emailError = true;
+                        $scope.showError = true;
                     }
                     $scope.hideLoader();
                 }, 

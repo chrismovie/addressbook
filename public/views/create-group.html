@@ -7,19 +7,24 @@
 
     <h2>create new group</h2>
 
+    <div ng-show="showConfirmation == true" class="confirmation">
+        <span class="icon-check"></span> New group created!
+    </div> 
+
+    <div ng-show="showError == true" class="error">
+        There was an error saving the new group. Please try again.
+    </div> 
+
     <section>
-        
         <div class="input">
             <input type="text" 
                    placeholder="group name" 
-                   ng-model="model.groupName" 
+                   ng-model="formData.groupName" 
                    required />
         </div>
-
     </section>
 
     <section>
-
         <h3>select contacts to add to this group</h3>
 
         <ul class="contact-list">
@@ -27,8 +32,7 @@
             <div ng-repeat="m in model | filter:query"
                  ng-class="{'contact-item': !isSelected, 'contact-item selected': isSelected}"
                  ng-init="isSelected = false"
-                 ng-click="isSelected = !isSelected"
-                 ng-click="addOrRemoveFromGroup(m.userid);" >
+                 ng-click="isSelected = !isSelected; addOrRemoveFromGroup(m.userid);"
                 <div class="item-content">
                     <img class="contact-avatar" ng-src="{{m.imgurl}}">
                     <span class="contact-name" ng-bind="m.firstname + ' ' + m.lastname"></span>
@@ -37,7 +41,6 @@
             </div>
 
         </ul> <!-- /.contacts -->
-
     </section>
 
     <section class="input button">
@@ -48,13 +51,3 @@
     </section>
 
 </form>
-
-<!--
-UPDATE 
-contacts 
-SET 
-group=`family` 
-WHERE 
-userid
-in (46251,92081)
--->

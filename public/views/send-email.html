@@ -7,13 +7,11 @@
 
     <h2>Send email to: <span ng-bind="model.recipient"></span></h2>
     
-    <!-- email sent success message -->
-    <div ng-show="emailSent == true" class="confirmation">
+    <div ng-show="showConfirmation == true" class="confirmation">
         <span class="icon-check"></span> Mail sent!
     </div> 
 
-    <!-- email failure message -->
-    <div ng-show="emailError == true" class="error">
+    <div ng-show="showError == true" class="error">
         Mail could not be sent.
     </div> 
 

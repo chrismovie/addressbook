@@ -55,6 +55,27 @@ app.post('/api/sendEmail', function (req, res) {
     });
 });
 
+// POST create contact group
+app.post('/api/addContactGroup', function (req, res) {
+
+    var q1, q2
+    
+    if (req.body.userids.length) {
+        q1 = 'UPDATE `contacts` SET `group` = ? WHERE `userid` IN (' + req.body.userids + ')';
+        db.query(q1, [req.body.groupName], function (err, result) {
+            if (err) { console.log(err); } 
+        });
+    }
+
+    q2 = 'INSERT IGNORE INTO groups SET groupname = ?';
+    db.query(q2, [req.body.groupName], function (err, result) {
+        if (err) { console.log(err); } 
+        res.send(result);
+        console.log(result); 
+    });
+
+});
+
 // authenticate user
 app.post('/api/authenticateUser', function (req, res) {
     var pw = md5(req.body.password).substring(0,15);
