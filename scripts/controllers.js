@@ -222,6 +222,20 @@
 
     }]);
 
+    // GroupsController
+    addressbook.controller('GroupsController', ['$scope', '$log', 'API', function ($scope, $log, API) {
+
+        API.httpRequest({ url: '/api/getContactGroups' }).query(
+            function (res) {
+                $scope.groups = res;
+            }, 
+            function (error) {
+                $log.debug(error);
+            }
+        );
+
+    }]);
+
     // LoginController
     addressbook.controller('LoginController', ['$scope', '$log', '$location', '$cookieStore', 'API', function ($scope, $log, $location, $cookieStore, API) {
 
