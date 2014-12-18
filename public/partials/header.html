@@ -2,40 +2,67 @@
     
     <a class="logo" href="#/">my <span>address book</span></a>
     
-    <a class="menu-toggle" ng-class="showOptionsMenu === true ? 'open' : ''" ng-click="showOptionsMenu == true ? showOptionsMenu = false : showOptionsMenu = true; showGroupsMenu = false;">
+    <a class="menu-toggle" 
+       ng-class="showOptionsMenu === true ? 'open' : ''" 
+       ng-click="showOptionsMenu == true ? showOptionsMenu = false : showOptionsMenu = true; showGroupsMenu = false;">
         <span class="icon-cog"></span>
     </a>
 
-    <a class="menu-toggle" ng-class="showGroupsMenu === true ? 'open' : ''" ng-click="showGroupsMenu == true ? showGroupsMenu = false : showGroupsMenu = true; showOptionsMenu = false;">
+    <a class="menu-toggle" 
+       ng-show="groups"
+       ng-class="showGroupsMenu === true ? 'open' : ''" 
+       ng-click="showGroupsMenu == true ? showGroupsMenu = false : showGroupsMenu = true; showOptionsMenu = false;">
         <span class="icon-group"></span>
     </a>
 
 </header>
 
-<ul ng-show="showOptionsMenu" id="options-menu" class="submenu">
+<ul ng-show="showOptionsMenu" 
+    id="options-menu" 
+    class="submenu">
     <li>
-        <a href="#/myuser"><span class="icon-profile"></span> my user</a>
+        <a href="#/myuser">
+            <span class="icon-profile"></span> my user
+        </a>
     </li>
     <li>
-        <a class="add-contact" title="add contact" href="#/create"><span class="icon-plus"></span> add new contact</a>
+        <a class="add-contact" 
+           title="add contact" 
+           href="#/create"><span 
+           class="icon-plus">
+            </span> add new contact
+        </a>
     </li>
     <li>
-        <a class="add-contact" title="add contact" href="#/create-group"><span class="icon-group"></span> new group</a>
+        <a class="add-contact" 
+           title="add contact" 
+           href="#/create-group">
+           <span class="icon-group"></span> new group
+       </a>
     </li>
     <li>
-        <a href="javascript:void(0)" ng-click="printContactList(); showmenu = false;"><span class="icon-print"></span> print contact list</a>
+        <a href="javascript:void(0)" 
+           ng-click="printContactList(); showmenu = false;">
+           <span class="icon-print"></span> print contact list
+       </a>
     </li>
     <li>
-        <a class="logout" href="#/login" ng-click="logout()"><span class="icon-logout"></span> logout</a>
+        <a class="logout" 
+           href="#/login" 
+           ng-click="logout()">
+            <span class="icon-logout"></span> logout
+        </a>
     </li>
 </ul>
 
-<ul ng-show="showGroupsMenu" id="groups-menu" class="submenu groups-menu" ng-controller="GroupsController"> 
+<ul ng-show="showGroupsMenu == true" 
+    id="groups-menu" 
+    class="submenu groups-menu"> 
     <li class="list-head">my groups</li>
-    <li ng-if="groups.length != 0" ng-repeat="g in groups">
+    <li ng-if="groups" ng-repeat="g in groups" ng-click="filterByGroup(g.groupname)">
         <span ng-bind="g.groupname"></span>
     </li>
-    <li ng-if="groups.length == 0">
+    <li ng-if="!groups">
         you have no groups
     </li>
 </ul>

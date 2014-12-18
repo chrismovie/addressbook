@@ -8,8 +8,22 @@
         $scope.$on('$routeChangeSuccess', function () {
             $scope.showLoader();
             $scope.getAllContacts();
+            $scope.getAllGroups();
             $scope.toTop();
         });
+
+        $scope.getAllGroups = function () {
+            API.httpRequest({ url: '/api/getContactGroups' }).query(
+                function (res) {
+                    if (res.length) {
+                        $scope.groups = res;
+                    }
+                }, 
+                function (error) {
+                    $log.debug(error);
+                }
+            );
+        };
 
         $scope.getAllContacts = function () {
             API.httpRequest({ url: '/api/getAllContacts' }).query(
@@ -21,6 +35,10 @@
                     $log.debug(error);
                 }
             );
+        };
+
+        $scope.filterByGroup = function (group) {
+            $scope.query = group;
         };
 
         $scope.toggleAsFavorite = function (userid, isFavorite) {
@@ -219,20 +237,6 @@
                 }
             );
         };
-
-    }]);
-
-    // GroupsController
-    addressbook.controller('GroupsController', ['$scope', '$log', 'API', function ($scope, $log, API) {
-
-        API.httpRequest({ url: '/api/getContactGroups' }).query(
-            function (res) {
-                $scope.groups = res;
-            }, 
-            function (error) {
-                $log.debug(error);
-            }
-        );
 
     }]);
 
