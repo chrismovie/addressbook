@@ -3,23 +3,21 @@
     <a class="logo" href="#/">my <span>address book</span></a>
     
     <a class="menu-toggle" 
-       ng-class="showOptionsMenu === true ? 'open' : ''" 
-       ng-click="showOptionsMenu == true ? showOptionsMenu = false : showOptionsMenu = true; showGroupsMenu = false;">
+       data-target="#options-menu" 
+       toggle-submenu>
         <span class="icon-cog"></span>
     </a>
 
     <a class="menu-toggle" 
-       ng-show="groups"
-       ng-class="showGroupsMenu === true ? 'open' : ''" 
-       ng-click="showGroupsMenu == true ? showGroupsMenu = false : showGroupsMenu = true; showOptionsMenu = false;">
+       data-target="#groups-menu" 
+       ng-show="groups" 
+       toggle-submenu>
         <span class="icon-group"></span>
     </a>
 
 </header>
 
-<ul ng-show="showOptionsMenu" 
-    id="options-menu" 
-    class="submenu">
+<ul id="options-menu" class="submenu">
     <li>
         <a href="#/myuser">
             <span class="icon-profile"></span> my user
@@ -55,11 +53,10 @@
     </li>
 </ul>
 
-<ul ng-show="showGroupsMenu == true" 
-    id="groups-menu" 
-    class="submenu groups-menu"> 
+<ul id="groups-menu" class="submenu groups-menu"> 
     <li class="list-head">my groups</li>
-    <li ng-if="groups" ng-repeat="g in groups" ng-click="filterByGroup(g.groupname)">
+    <li ng-click="filterByGroup('')" hide-submenus>all groups</li>
+    <li ng-if="groups" ng-repeat="g in groups" ng-click="filterByGroup(g.groupname)" hide-submenus>
         <span ng-bind="g.groupname"></span>
     </li>
     <li ng-if="!groups">

@@ -6,6 +6,7 @@
     addressbook.controller('AddressBookController', ['$scope', '$log', '$cookieStore', '$window', '$timeout', 'API', function ($scope, $log,  $cookieStore, $window, $timeout, API) {
 
         $scope.$on('$routeChangeSuccess', function () {
+            $scope.activeMenu = '';
             $scope.showLoader();
             $scope.getAllContacts();
             $scope.getAllGroups();
